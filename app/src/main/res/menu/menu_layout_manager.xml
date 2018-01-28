@@ -1,0 +1,39 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="ir.rainyday.listexample.modules.main.MainActivity">
+    <group
+        android:id="@+id/first_group"
+        android:checkableBehavior="single">
+    <item
+        android:id="@+id/linear"
+        android:orderInCategory="100"
+        android:title="Linear"
+        app:showAsAction="never" />
+
+        <item
+            android:id="@+id/grid"
+            android:orderInCategory="100"
+            android:title="Grid"
+            app:showAsAction="never" />
+
+
+        <item
+            android:id="@+id/spanned"
+            android:orderInCategory="100"
+            android:title="Spanned"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/staggered"
+            android:orderInCategory="100"
+            android:title="Staggered"
+            app:showAsAction="never" />
+
+        <item
+            android:id="@+id/flow"
+            android:orderInCategory="100"
+            android:title="Flow"
+            app:showAsAction="never" />
+    </group>
+</menu>

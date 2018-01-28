@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp">
+
+    <ProgressBar
+        android:id="@+id/movie_progress"
+        style="@style/Widget.AppCompat.ProgressBar"
+        android:layout_width="@dimen/activity_margin"
+        android:layout_height="@dimen/activity_margin"
+        android:layout_gravity="center"
+        android:theme="@style/CircularProgress" />
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop" />
+
+</android.support.v7.widget.CardView>

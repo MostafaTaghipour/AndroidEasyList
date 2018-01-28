@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".modules.main.MainActivity">
+
+
+    <Button
+        android:id="@+id/btnEndless"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pagination + Inner List + Multiple type" />
+
+    <Button
+        android:layout_marginTop="16dp"
+        android:id="@+id/btnSectioned"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Header + Footer + Indexing" />
+
+
+    <Button
+        android:layout_marginTop="16dp"
+        android:id="@+id/btnFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Filtering + Sorting + EmptyView" />
+
+    <Button
+        android:layout_marginTop="16dp"
+        android:id="@+id/btnAnimation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Modify + Animation + Undo" />
+
+
+    <Button
+        android:layout_marginTop="16dp"
+        android:id="@+id/btnMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Messaging + Reverse Layout" />
+
+
+    <Button
+        android:layout_marginTop="16dp"
+        android:id="@+id/btnExpandable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Expandable" />
+
+
+    <Button
+        android:layout_marginTop="16dp"
+        android:id="@+id/btnLayoutManager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Layout Managers" />
+
+</LinearLayout>
