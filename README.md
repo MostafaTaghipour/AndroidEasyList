@@ -1,4 +1,7 @@
 # EasyList
+[![](https://jitpack.io/v/mostafataghipour/androideasylist.svg)](https://jitpack.io/#mostafataghipour/androideasylist)
+
+## [iOSVersion](https://github.com/MostafaTaghipour/iOSEasyList)
 
 Framework to simplify the setup and configuration of Recyclerview adapter. It allows a type-safe setup of RecyclerView adapter.  also provides out-of-the-box diffing and animated deletions, inserts, moves and changes.
 
@@ -6,14 +9,15 @@ Framework to simplify the setup and configuration of Recyclerview adapter. It al
 Everything you need to implement your own lists:
 - Easy to use UITableView and UICollectionView
 - Diffable
-- Sectioned
+- Header and footer
 - Pagination
 - Expandable
 - Loading footer
 - Empty View
+- Filterable
 - Multiple data type
 
-<img width="290" alt="animation" src="/screenshots/animation.gif"> <img width="290" alt="expandable" src="/screenshots/expandable_ios.gif"> <img width="290" alt="filtering" src="/screenshots/filtering.gif"> <img width="290" alt="message" src="/screenshots/message.gif"> <img width="290" alt="layout" src="/screenshots/layout.gif"> <img width="290" alt="pagination" src="/screenshots/pagination.gif"> <img width="290" alt="sectioned" src="/screenshots/sectioned.gif">
+<img width="290" alt="animation" src="/screenshots/animation.gif"> <img width="290" alt="expandable" src="/screenshots/expandable.gif"> <img width="290" alt="filtering" src="/screenshots/filtering.gif"> <img width="290" alt="message" src="/screenshots/message.gif"> <img width="290" alt="layout" src="/screenshots/layout.gif"> <img width="290" alt="pagination" src="/screenshots/pagination.gif"> <img width="290" alt="sectioned" src="/screenshots/sectioned.gif">
 
 
 ## Requirements
@@ -26,10 +30,10 @@ Add JitPack to repositories in your project's root `build.gradle` file:
 
 ```Gradle
 allprojects {
-repositories {
-...
-maven { url "https://jitpack.io" }
-}
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
 }
 ```
 
@@ -37,30 +41,15 @@ Add the dependency to your module's `build.gradle` file:
 
 ```Gradle
 dependencies {
-...
-
+    ...
+    compile 'com.github.mostafataghipour:androideasylist:1.0'
 }
 ```
 
 
 
 ## Usage
-1. Define your model
-```kotlin
-data class Movie(
-    val id: String,
-    val title: String
-) : Diffable {
-    override val diffableIdentity: String
-        get() = id
-
-    override fun isEqualTo(other: Any): Boolean {
-        return if (other is Movie) return this == other else false
-    }
-}
-```
-
-2. Define `RecyclerViewAdapter`
+1. Define `RecyclerViewAdapter`
 ```kotlin
 private val adapter: RecyclerViewAdapter<Movie> by lazy {
 
@@ -87,7 +76,7 @@ private val adapter: RecyclerViewAdapter<Movie> by lazy {
 
         }
     }
-    
+        
     return adapter
 }
 
@@ -97,19 +86,22 @@ override fun onCreate(savedInstanceState: Bundle?) {
     setContentView(R.layout.activity_filtering)
 
     recyclerView.adapter = adapter
-})
-
 }
+
 ```
 
-3. Set Data
+2. Set Data
 ```kotlin
     adapter.items = yourItems
 ```
 
 4. That's it, for more samples please see example project
 
+## Inspiration
 
+[Android-Pagination-with-RecyclerView](https://github.com/Suleiman19/Android-Pagination-with-RecyclerView)
+[Apinned-section-item-decoration](https://github.com/takahr/pinned-section-item-decoration)
+[Generic ViewHolder](https://medium.com/@AlexeyBuzdin/generic-viewholder-for-android-63bf9e0db06a)
 
 ## Author
 
