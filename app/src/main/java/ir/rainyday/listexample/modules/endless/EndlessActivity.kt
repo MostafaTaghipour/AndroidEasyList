@@ -8,9 +8,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import ir.rainday.easylist.LoadingFooterAdapter
 import ir.rainyday.listexample.R
 import ir.rainday.easylist.PaginatedRecyclerOnScrollListener
-import ir.rainday.easylist.LoadingFooter
 import kotlinx.android.synthetic.main.activity_endless.*
 import kotlinx.android.synthetic.main.content_endless.*
 import kotlinx.android.synthetic.main.layout_error.*
@@ -83,7 +83,7 @@ class EndlessActivity : AppCompatActivity(), EndlessAdapter.CallbackListener {
             } else if (swipe_refresh_layout.isRefreshing) {
                 swipe_refresh_layout.isRefreshing = false
             } else {
-                (adapter as LoadingFooter).loading = visible
+                (adapter as LoadingFooterAdapter).loading = visible
             }
         })
 
@@ -96,7 +96,7 @@ class EndlessActivity : AppCompatActivity(), EndlessAdapter.CallbackListener {
                 error_txt_cause.text = error
             } else {
                 adapter.error = error
-                (adapter as LoadingFooter).retry = hasError
+                (adapter as LoadingFooterAdapter).retry = hasError
 
             }
         })

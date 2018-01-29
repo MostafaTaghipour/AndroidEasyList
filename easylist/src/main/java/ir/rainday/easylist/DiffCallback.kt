@@ -23,20 +23,20 @@ class DiffCallback(private val oldList: List<*>, private val newList: List<*>) :
 
 
         if (oldItem is Diffable && newItem is Diffable)
-            return oldItem.diffableIdentity==newItem.diffableIdentity
+            return oldItem.diffableIdentity == newItem.diffableIdentity
 
-        return oldItem==newItem
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
 
-        if (oldItem is Diffable && newItem!=null)
+        if (oldItem is Diffable && newItem != null)
             return oldItem.isEqualTo(newItem)
 
 
-        return oldItem==newItem
+        return oldItem == newItem
     }
 
     override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
@@ -46,8 +46,10 @@ class DiffCallback(private val oldList: List<*>, private val newList: List<*>) :
 }
 
 
-interface Diffable{
-    val diffableIdentity:String
-    fun isEqualTo(other:Any):Boolean
+interface Diffable {
+    val diffableIdentity: String
+    fun isEqualTo(other: Any): Boolean {
+       return this == other
+    }
 }
 

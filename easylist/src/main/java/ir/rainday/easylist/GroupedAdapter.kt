@@ -9,7 +9,7 @@ import android.view.ViewGroup
  */
 
 
-interface Grouped {
+interface GroupedAdapter {
 
     val _headerType
         get() = 1110

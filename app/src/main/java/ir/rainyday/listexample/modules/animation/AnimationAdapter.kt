@@ -6,9 +6,9 @@ import android.view.View
 import android.widget.TextView
 import ir.rainday.easylist.RecyclerViewAdapter
 import ir.rainday.easylist.GenericViewHolder
+import ir.rainday.easylist.SelectableAdapter
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.DateModel
-import ir.rainday.easylist.Selectable
 
 
 /**
@@ -18,7 +18,7 @@ class AnimationAdapter(
         context: Context,
         onRowClickListener: GenericViewHolder.OnItemClicked<DateModel>) :
         RecyclerViewAdapter<DateModel>(context),
-        Selectable {
+        SelectableAdapter {
 
     private var enterAnimationFinished = false
     var lastVisibleItem = 100

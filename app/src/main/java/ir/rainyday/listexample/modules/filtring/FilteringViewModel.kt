@@ -15,10 +15,6 @@ import retrofit2.Response
  */
 class FilteringViewModel() : ViewModel() {
 
-    private var originalItems = ArrayList<Movie>()
-    private var query: String? = null
-    private var sortFactor: SortFactor? = null
-
     val items = MutableLiveData<MutableList<Movie>>()
 
     init {
@@ -30,42 +26,26 @@ class FilteringViewModel() : ViewModel() {
     private fun loadPage() {
         MovieApi.getTopRatedMovies(1,
                 success = { movies ->
-                    originalItems = ArrayList(movies)
-                    updateItems()
+                    items.value = movies.toMutableList()
                 },
                 failure = {
                 })
     }
 
-    private fun updateItems() {
-        var list  = originalItems
+    fun sort(by: SortFactor) {
+        val list = items.value
 
-        if (!query.isNullOrEmpty())
-            list = list.filter { it.title!!.toLowerCase().contains(query!!.toLowerCase()) } as ArrayList<Movie>
+        list?.sortBy {
 
-
-        if (sortFactor != null)
-            list.sortBy {
-
-                when (sortFactor!!) {
-                    SortFactor.Title -> it.title
-                    SortFactor.Language -> it.originalLanguage
-                    SortFactor.Year -> it.releaseDate
-                }
-
+            when (by) {
+                SortFactor.Title -> it.title
+                SortFactor.Language -> it.originalLanguage
+                SortFactor.Year -> it.releaseDate
             }
 
+        }
+
         items.value = list
-    }
-
-    fun setFilter(newText: String?) {
-        query = newText
-        updateItems()
-    }
-
-    fun sort(by: SortFactor) {
-        sortFactor = by
-        updateItems()
     }
 
 }

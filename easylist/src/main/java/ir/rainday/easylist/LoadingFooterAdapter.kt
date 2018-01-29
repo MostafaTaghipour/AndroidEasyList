@@ -8,7 +8,7 @@ import android.view.ViewGroup
  * Created by mostafa-taghipour on 12/22/17.
  */
 
-interface LoadingFooter {
+interface LoadingFooterAdapter {
     private val _loadingToken
         get() = "loading_token"
 
@@ -35,20 +35,20 @@ interface LoadingFooter {
                 if (adapter.itemCount == 0)
                     return
 
-                adapter._allItems.add(adapter._allItems.size, _loadingToken)
-                adapter.notifyItemInserted(adapter._allItems.size - 1)
+                adapter._private_allItems.add(adapter._private_allItems.size, _loadingToken)
+                adapter.notifyItemInserted(adapter._private_allItems.size - 1)
 
             } else {
                 if (loading) {
 
-                    val position = adapter._allItems.size - 1
-                    adapter._allItems.removeAt(position)
+                    val position = adapter._private_allItems.size - 1
+                    adapter._private_allItems.removeAt(position)
                     adapter.notifyItemRemoved(position)
                 }
             }
         }
         get() {
-            return !adapter._allItems.isEmpty() && (adapter._allItems.last() as? String) == _loadingToken
+            return !adapter._private_allItems.isEmpty() && (adapter._private_allItems.last() as? String) == _loadingToken
         }
 
 
@@ -67,20 +67,20 @@ interface LoadingFooter {
                 if (adapter.itemCount == 0)
                     return
 
-                adapter._allItems.add(adapter._allItems.size, _retryToken)
-                adapter.notifyItemInserted(adapter._allItems.size - 1)
+                adapter._private_allItems.add(adapter._private_allItems.size, _retryToken)
+                adapter.notifyItemInserted(adapter._private_allItems.size - 1)
 
             } else {
                 if (retry) {
 
-                    val position = adapter._allItems.size - 1
-                    adapter._allItems.removeAt(position)
+                    val position = adapter._private_allItems.size - 1
+                    adapter._private_allItems.removeAt(position)
                     adapter.notifyItemRemoved(position)
                 }
             }
         }
         get() {
-            return !adapter._allItems.isEmpty() && (adapter._allItems.last() as? String) == _retryToken
+            return !adapter._private_allItems.isEmpty() && (adapter._private_allItems.last() as? String) == _retryToken
         }
 
 
@@ -96,8 +96,8 @@ interface LoadingFooter {
 
     fun _tryToGetLoadingItemType(position: Int): Int? {
         return when {
-            (adapter._allItems[position] as? String) == _loadingToken -> _loadingType
-            (adapter._allItems[position] as? String) == _retryToken -> _retryType
+            (adapter._private_allItems[position] as? String) == _loadingToken -> _loadingType
+            (adapter._private_allItems[position] as? String) == _retryToken -> _retryType
             else -> null
         }
     }

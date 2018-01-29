@@ -8,7 +8,7 @@ import android.view.ViewGroup
 /**
  * Created by mostafa-taghipour on 12/29/17.
  */
-interface Expandable : Grouped {
+interface ExpandableAdapter : GroupedAdapter {
 
     override fun isHeader(position: Int): Boolean {
         return isHeader(adapter.items!![position])
@@ -35,14 +35,14 @@ interface Expandable : Grouped {
                 items.add(item)
 
                 if (type == Type.NORMAL) {
-                    if (item in adapter._allItems || !collapseByDefault)
+                    if (item in adapter._private_allItems || !collapseByDefault)
                         res.add(item)
                 } else {
-                    if (adapter._allItems.count { !isHeader(it) } == 0) {
+                    if (adapter._private_allItems.count { !isHeader(it) } == 0) {
                         if (position == 0)
                             res.add(item)
                     } else {
-                        if (item in adapter._allItems)
+                        if (item in adapter._private_allItems)
                             res.add(item)
                     }
                 }
@@ -51,8 +51,8 @@ interface Expandable : Grouped {
             map[header] = items
         }
 
-        adapter._expandMap.clear()
-        adapter._expandMap.putAll(map)
+        adapter._private_expandMap.clear()
+        adapter._private_expandMap.putAll(map)
         return res
     }
 
@@ -75,10 +75,10 @@ interface Expandable : Grouped {
             if (isExpanded(position))
                 return
 
-            adapter._allItems[position].let {
+            adapter._private_allItems[position].let {
                 collapseAll()
                 Handler().postDelayed({
-                    expand(adapter._allItems.indexOf(it))
+                    expand(adapter._private_allItems.indexOf(it))
                 },200)
 
             }
@@ -92,21 +92,21 @@ interface Expandable : Grouped {
 
     fun isCollapsed(position: Int): Boolean {
 
-        if (position + 1 >= adapter._allItems.size)
+        if (position + 1 >= adapter._private_allItems.size)
             return true
 
-        return isHeader(adapter._allItems[position + 1])
+        return isHeader(adapter._private_allItems[position + 1])
     }
 
     fun expand(position: Int) {
 
-        if ((position >= adapter._allItems.size) or isExpanded(position))
+        if ((position >= adapter._private_allItems.size) or isExpanded(position))
             return
 
         onExpand(position)
-        adapter._expandMap[adapter._allItems[position]]?.let {
+        adapter._private_expandMap[adapter._private_allItems[position]]?.let {
             val index = position + 1
-            adapter._allItems.addAll(index, it)
+            adapter._private_allItems.addAll(index, it)
             adapter.notifyItemRangeInserted(index, it.size)
         }
 
@@ -115,12 +115,12 @@ interface Expandable : Grouped {
 
     fun collapse(position: Int) {
 
-        if ((position >= adapter._allItems.size) or isCollapsed(position))
+        if ((position >= adapter._private_allItems.size) or isCollapsed(position))
             return
 
         onCollapse(position)
-        adapter._expandMap[adapter._allItems[position]]?.let {
-            adapter._allItems.removeAll(it)
+        adapter._private_expandMap[adapter._private_allItems[position]]?.let {
+            adapter._private_allItems.removeAll(it)
             adapter.notifyItemRangeRemoved(position + 1, it.size)
         }
     }
@@ -128,24 +128,24 @@ interface Expandable : Grouped {
 
 
     fun collapseAll(expectPosition: Int? = null,viewHolder: RecyclerView.ViewHolder?=null) {
-        adapter._allItems
+        adapter._private_allItems
                 .filter { isHeader(it) }
-                .map { adapter._allItems.indexOf(it) }
+                .map { adapter._private_allItems.indexOf(it) }
                 .filter { it != expectPosition }
                 .forEach { collapse(it) }
     }
 
     fun expandAll(expectPosition: Int? = null,viewHolder: RecyclerView.ViewHolder?=null) {
-        adapter._allItems
+        adapter._private_allItems
                 .filter { isHeader(it) }
-                .map { adapter._allItems.indexOf(it) }
+                .map { adapter._private_allItems.indexOf(it) }
                 .filter { it != expectPosition }
                 .forEach { expand(it) }
     }
 
 
     // must implements methods
-    val adapter: RecyclerViewAdapter<Any>
+    val adapter: RecyclerViewAdapter<*>
     val collapseByDefault: Boolean
         get() = true
     val type: Type

@@ -45,7 +45,8 @@ class GenericViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     fun clearAnimation() {
         view?.clearAnimation()
     }
+
     interface OnItemClicked<in T> {
-        fun onRowClicked(view: View, position: Int, item: T?)
+        fun onRecyclerViewItemClicked(adapter: RecyclerView.Adapter<*>, view: View, position: Int, item: T)
     }
 }

@@ -155,19 +155,15 @@ class AnimationActivity : AppCompatActivity(),
     }
 
 
-    // adapter callback
-    override fun onRowClicked(view: View, position: Int, item: DateModel?) {
-
+    override fun onRecyclerViewItemClicked(adapter: RecyclerView.Adapter<*>, view: View, position: Int, item: DateModel) {
         if (actionMode == null)
             return
 
-        adapter.toggleSelection(position)
+        this.adapter.toggleSelection(position)
 
-        val count = adapter.getSelectedItemCount()
+        val count = this.adapter.getSelectedItemCount()
         setActionModeTitle(if (count > 0) "$count item selected" else null)
-
     }
-
     override fun update(item: DateModel, position: Int) {
 
         if (actionMode == null)

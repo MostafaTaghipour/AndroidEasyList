@@ -11,7 +11,8 @@ import ir.rainyday.listexample.AppHelpers
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.Movie
 import ir.rainday.easylist.PinnedHeaderItemDecoration
-import ir.rainday.easylist.Sectioned
+import ir.rainday.easylist.SectionedAdapter
+
 
 /**
  * Created by mostafa-taghipour on 12/22/17.
@@ -21,7 +22,7 @@ import ir.rainday.easylist.Sectioned
 
 
 class SectionedAdapter(context: Context): RecyclerViewAdapter<Any>(context),
-        Sectioned,
+        SectionedAdapter,
         PinnedHeaderItemDecoration.PinnedHeaderAdapter,
         FastScroller.SectionIndexer{
 

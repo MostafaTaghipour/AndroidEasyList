@@ -1,7 +1,11 @@
 package ir.rainday.easylist
 
+import android.content.Context
+import android.support.annotation.LayoutRes
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import java.lang.ref.WeakReference
 
 /**
@@ -9,28 +13,46 @@ import java.lang.ref.WeakReference
  */
 
 
-class RecyclerViewEmptyObserver(recyclerView: RecyclerView, emptyView: View) : RecyclerView.AdapterDataObserver() {
+class RecyclerViewEmptyObserver(recyclerView: RecyclerView) : RecyclerView.AdapterDataObserver() {
 
-    private var recyclerView: WeakReference<RecyclerView>?=null
-    private var emptyView: WeakReference<View>?=null
+    private var weakRecyclerView: WeakReference<RecyclerView>? = null
+    private var weakEmptyView: WeakReference<View>? = null
+
+    var emptyView: View?
+        get() = weakEmptyView?.get()
+        set(value) {
+            if (value == null)
+                return
+
+            weakEmptyView = WeakReference(value)
+            checkIfEmpty()
+        }
 
     init {
-        this.recyclerView= WeakReference(recyclerView)
-        this.emptyView= WeakReference(emptyView)
-        checkIfEmpty()
+        this.weakRecyclerView = WeakReference(recyclerView)
     }
 
+    constructor(recyclerView: RecyclerView, emptyView: View) : this(recyclerView) {
+        this.emptyView = emptyView
+    }
+
+
+    constructor(recyclerView: RecyclerView, @LayoutRes emptyViewRes: Int) : this(recyclerView) {
+        val contentView = recyclerView.parent as ViewGroup
+        val view = (recyclerView.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(emptyViewRes, null, false)
+        view?.layoutParams = recyclerView.layoutParams
+        contentView.addView(view)
+        emptyView = view
+    }
 
     /**
      * Check if Layout is empty and show the appropriate view
      */
     private fun checkIfEmpty() {
-        val emptyView = emptyView?.get()
-        val recyclerView = recyclerView?.get()
-        if (emptyView != null && recyclerView?.adapter != null) {
-            val emptyViewVisible = recyclerView.adapter.itemCount == 0
-            emptyView.visibility = if (emptyViewVisible) View.VISIBLE else View.GONE
-//            recyclerView.visibility = if (emptyViewVisible) View.GONE else View.VISIBLE
+        val empty = weakEmptyView?.get()
+        val recyclerView = weakRecyclerView?.get()
+        recyclerView?.adapter?.itemCount?.let {
+            empty?.visibility = if (it == 0) View.VISIBLE else View.INVISIBLE
         }
     }
 
@@ -50,4 +72,13 @@ class RecyclerViewEmptyObserver(recyclerView: RecyclerView, emptyView: View) : R
         checkIfEmpty()
     }
 
+}
+
+
+fun RecyclerView.setEmptyView(emptyView: View) {
+    this.adapter.registerAdapterDataObserver(RecyclerViewEmptyObserver(this, emptyView))
+}
+
+fun RecyclerView.setEmptyView(@LayoutRes emptyViewRes: Int) {
+    this.adapter.registerAdapterDataObserver(RecyclerViewEmptyObserver(this, emptyViewRes))
 }

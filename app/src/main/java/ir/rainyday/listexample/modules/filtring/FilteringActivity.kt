@@ -15,12 +15,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.hojan.mobile.pharmacy.easylist.FilterableAdapter
 import ir.rainday.easylist.RecyclerViewAdapter
 import ir.rainday.easylist.GenericViewHolder
 import ir.rainyday.listexample.AppHelpers
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.Movie
 import ir.rainday.easylist.RecyclerViewEmptyObserver
+import ir.rainday.easylist.setEmptyView
 import kotlinx.android.synthetic.main.content_filtering.*
 import kotlinx.android.synthetic.main.layout_regular_appbar.*
 
@@ -39,7 +41,7 @@ class FilteringActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private val adapter: RecyclerViewAdapter<Movie> by lazy {
 
-        val adapter = object : RecyclerViewAdapter<Movie>(this){
+        val adapter = object : RecyclerViewAdapter<Movie>(this),FilterableAdapter{
             override fun getLayout(viewType: Int): Int {
                 return  R.layout.item_list
             }
@@ -61,6 +63,12 @@ class FilteringActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                         .into(mPosterImg)
 
             }
+
+            override val adapter = this
+
+            override fun filterItem(constraint: CharSequence, item: Any): Boolean {
+                return (item as Movie).title!!.toLowerCase().contains(constraint.toString().toLowerCase())
+            }
         }
         adapter
 
@@ -80,13 +88,7 @@ class FilteringActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         recyclerView.adapter = adapter
 
-        val contentView = this.findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup
-        val emptyView=layoutInflater.inflate(R.layout.layout_no_item,null)
-        emptyView.layoutParams=recyclerView.layoutParams
-        emptyView.visibility=View.GONE
-        contentView.addView(emptyView)
-
-        adapter.registerAdapterDataObserver(RecyclerViewEmptyObserver(recyclerView, emptyView))
+        recyclerView.setEmptyView(R.layout.layout_no_item)
 
         viewModel.items.observe(this, Observer { list ->
             adapter.items = list
@@ -131,7 +133,7 @@ class FilteringActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-       viewModel.setFilter(newText)
+        (adapter as FilterableAdapter).setFilterConstraint(newText)
         return true
     }
 

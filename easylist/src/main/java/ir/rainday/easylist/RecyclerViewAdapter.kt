@@ -7,6 +7,7 @@ import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.hojan.mobile.pharmacy.easylist.FilterableAdapter
 import kotlin.collections.HashMap
 
 
@@ -16,52 +17,64 @@ import kotlin.collections.HashMap
 @Suppress("UNCHECKED_CAST")
 abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val _selectedItems: SparseBooleanArray = SparseBooleanArray()
-    val _allItems: MutableList<Any> = ArrayList()
-    val _expandMap = HashMap<Any, List<Any>>()
+    val _private_selectedItems: SparseBooleanArray = SparseBooleanArray()
+    val _private_allItems: MutableList<Any> = ArrayList()
+    var _private_lockNonefilteredItems = false
+    var _private_nonefilteredItems: List<Any> = ArrayList()
+    val _private_expandMap = HashMap<Any, List<Any>>()
 
     var items: List<T>?
         set(value) {
-            var newList: List<T> = value ?: return
 
+            var newList: List<T> = value ?: ArrayList()
+            val oldList: List<T> = items ?: ArrayList<T>()
 
-            if (this is Expandable)
+            if (this is ExpandableAdapter)
                 newList = this._tryToMapList(newList) as List<T>
 
+            if (this is FilterableAdapter && !_private_lockNonefilteredItems)
+                _private_nonefilteredItems = newList
 
-            val diffResult = DiffUtil.calculateDiff(DiffCallback(items ?: ArrayList<T>(), newList))
 
-            _allItems.clear()
-            _allItems.addAll(newList)
+            if (isAnimationEnabled) {
+                val diffResult = DiffUtil.calculateDiff(DiffCallback(oldList, newList))
 
-            diffResult.dispatchUpdatesTo(this)
+                _private_allItems.clear()
+                _private_allItems.addAll(newList)
+
+                diffResult.dispatchUpdatesTo(this)
+            } else {
+                _private_allItems.clear()
+                _private_allItems.addAll(newList)
+                notifyDataSetChanged()
+            }
         }
         get() {
 
-            var res : List<Any> = _allItems
-            if (this is LoadingFooter)
+            var res: List<Any> = _private_allItems
+            if (this is LoadingFooterAdapter)
                 res = _tryToFilterItems(res)
 
             return res as? List<T>
         }
 
+    var isAnimationEnabled: Boolean = true
 
     val isEmpty: Boolean
         get() = itemCount == 0
 
-
     var onItemClickListener: GenericViewHolder.OnItemClicked<T>? = null
 
-    @Suppress("CanBeVal")
+
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         val inflater = LayoutInflater.from(context)
         var viewHolder: RecyclerView.ViewHolder? = null
 
-        if (this is LoadingFooter)
+        if (this is LoadingFooterAdapter)
             viewHolder = this._tryToGenerateLoadingViewHolder(inflater, viewType, viewGroup)
 
-        if (this is Grouped)
+        if (this is GroupedAdapter)
             viewHolder = this._tryToGenerateSectionViewHolder(inflater, viewType, viewGroup)
 
         if (viewHolder == null) {
@@ -75,31 +88,33 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
     open fun generateViewHolder(inflater: LayoutInflater, viewType: Int, viewGroup: ViewGroup): RecyclerView.ViewHolder {
         val view: View = inflater.inflate(getLayout(viewType), viewGroup, false)
         val viewHolder = GenericViewHolder(view)
+
         if (onItemClickListener != null)
             view.setOnClickListener {
-                this.onItemClickListener?.onRowClicked(view, viewHolder.adapterPosition, items?.get(viewHolder.adapterPosition))
+                items?.getOrNull(viewHolder.adapterPosition)?.let {
+                    this.onItemClickListener?.onRecyclerViewItemClicked(this, view, viewHolder.adapterPosition, it)
+                }
             }
         return viewHolder
     }
 
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
 
-        val item = _allItems[position]
+        val item = _private_allItems[position]
 
-        if (this is LoadingFooter)
+        if (this is LoadingFooterAdapter)
             this._tryToBindLoadingView(item, holder)
 
-        if (this is Grouped)
+        if (this is GroupedAdapter)
             this._tryToBindSectionView(item, position, holder)
 
         try {
             bindView(item as T, position, holder)
 
-            if (this is Selectable) {
+            if (this is SelectableAdapter) {
                 // change the row state to activated
-                holder.itemView.isActivated = _selectedItems.get(position, false)
+                holder.itemView.isActivated = _private_selectedItems.get(position, false)
             }
 
         } catch (e: Exception) {
@@ -108,14 +123,14 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
 
 
     override fun getItemCount(): Int {
-        return _allItems.size
+        return _private_allItems.size
     }
 
     override fun getItemViewType(position: Int): Int {
-        var type = (this as? LoadingFooter)?._tryToGetLoadingItemType(position)
+        var type = (this as? LoadingFooterAdapter)?._tryToGetLoadingItemType(position)
 
         if (type == null)
-            type = (this as? Grouped)?._tryToGetSectionItemType(position)
+            type = (this as? GroupedAdapter)?._tryToGetSectionItemType(position)
 
         if (type == null)
             type = getItemType(position)
@@ -123,11 +138,12 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
         return type
     }
 
-
     // must implements methods
     protected abstract fun getLayout(viewType: Int): Int
+
     protected abstract fun bindView(item: T, position: Int, viewHolder: RecyclerView.ViewHolder)
     open fun getItemType(position: Int): Int = 0
+
 }
 
 

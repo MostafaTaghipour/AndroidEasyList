@@ -7,7 +7,7 @@ import android.view.ViewGroup
 /**
  * Created by mostafa-taghipour on 12/29/17.
  */
-interface Sectioned : Grouped {
+interface SectionedAdapter : GroupedAdapter {
 
 
     private val _footerType

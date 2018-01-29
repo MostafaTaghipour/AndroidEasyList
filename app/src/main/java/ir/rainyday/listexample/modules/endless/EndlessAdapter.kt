@@ -12,13 +12,13 @@ import ir.rainyday.listexample.AppHelpers
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.Movie
 import ir.rainyday.listexample.model.PopularMovies
-import ir.rainday.easylist.LoadingFooter
 import java.lang.ref.WeakReference
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import ir.rainday.easylist.GravitySnapHelper
+import ir.rainday.easylist.LoadingFooterAdapter
 
 
 /**
@@ -28,7 +28,7 @@ import ir.rainday.easylist.GravitySnapHelper
 
 class EndlessAdapter(context: Context) :
         RecyclerViewAdapter<Any>(context),
-        LoadingFooter, PopularsViewHolder.Contract {
+        LoadingFooterAdapter, PopularsViewHolder.Contract {
 
     companion object {
         // View Types
