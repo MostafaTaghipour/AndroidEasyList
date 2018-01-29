@@ -97,7 +97,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 3. That's it, for more samples please see example project
 
-## Inspiration
+## Thanks for
 
 - [Android-Pagination-with-RecyclerView](https://github.com/Suleiman19/Android-Pagination-with-RecyclerView)
 - [Apinned-section-item-decoration](https://github.com/takahr/pinned-section-item-decoration)
