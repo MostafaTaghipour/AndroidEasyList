@@ -1,7 +1,7 @@
 # EasyList
 [![](https://jitpack.io/v/mostafataghipour/androideasylist.svg)](https://jitpack.io/#mostafataghipour/androideasylist)
 
-## [iOSVersion](https://github.com/MostafaTaghipour/iOSEasyList)
+## [iOS version is here](https://github.com/MostafaTaghipour/iOSEasyList)
 
 Framework to simplify the setup and configuration of Recyclerview adapter. It allows a type-safe setup of RecyclerView adapter.  also provides out-of-the-box diffing and animated deletions, inserts, moves and changes.
 
@@ -95,13 +95,13 @@ override fun onCreate(savedInstanceState: Bundle?) {
     adapter.items = yourItems
 ```
 
-4. That's it, for more samples please see example project
+3. That's it, for more samples please see example project
 
 ## Inspiration
 
-[Android-Pagination-with-RecyclerView](https://github.com/Suleiman19/Android-Pagination-with-RecyclerView)
-[Apinned-section-item-decoration](https://github.com/takahr/pinned-section-item-decoration)
-[Generic ViewHolder](https://medium.com/@AlexeyBuzdin/generic-viewholder-for-android-63bf9e0db06a)
+- [Android-Pagination-with-RecyclerView](https://github.com/Suleiman19/Android-Pagination-with-RecyclerView)
+- [Apinned-section-item-decoration](https://github.com/takahr/pinned-section-item-decoration)
+- [Generic ViewHolder](https://medium.com/@AlexeyBuzdin/generic-viewholder-for-android-63bf9e0db06a)
 
 ## Author
 
