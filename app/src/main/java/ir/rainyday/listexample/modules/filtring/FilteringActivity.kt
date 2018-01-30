@@ -15,14 +15,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.hojan.mobile.pharmacy.easylist.FilterableAdapter
-import ir.rainday.easylist.RecyclerViewAdapter
-import ir.rainday.easylist.GenericViewHolder
+import ir.rainday.easylist.*
 import ir.rainyday.listexample.AppHelpers
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.Movie
-import ir.rainday.easylist.RecyclerViewEmptyObserver
-import ir.rainday.easylist.setEmptyView
 import kotlinx.android.synthetic.main.content_filtering.*
 import kotlinx.android.synthetic.main.layout_regular_appbar.*
 
@@ -41,7 +37,7 @@ class FilteringActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private val adapter: RecyclerViewAdapter<Movie> by lazy {
 
-        val adapter = object : RecyclerViewAdapter<Movie>(this),FilterableAdapter{
+        val adapter = object : RecyclerViewAdapter<Movie>(this), FilterableAdapter {
             override fun getLayout(viewType: Int): Int {
                 return  R.layout.item_list
             }

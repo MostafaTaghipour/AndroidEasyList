@@ -7,7 +7,6 @@ import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.hojan.mobile.pharmacy.easylist.FilterableAdapter
 import kotlin.collections.HashMap
 
 
@@ -17,11 +16,11 @@ import kotlin.collections.HashMap
 @Suppress("UNCHECKED_CAST")
 abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    val _private_selectedItems: SparseBooleanArray = SparseBooleanArray()
-    val _private_allItems: MutableList<Any> = ArrayList()
-    var _private_lockNonefilteredItems = false
-    var _private_nonefilteredItems: List<Any> = ArrayList()
-    val _private_expandMap = HashMap<Any, List<Any>>()
+   internal val _private_selectedItems: SparseBooleanArray = SparseBooleanArray()
+    internal  val _private_allItems: MutableList<Any> = ArrayList()
+    internal var _private_lockNonefilteredItems = false
+    internal var _private_nonefilteredItems: List<Any> = ArrayList()
+    internal val _private_expandMap = HashMap<Any, List<Any>>()
 
     var items: List<T>?
         set(value) {

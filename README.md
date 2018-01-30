@@ -1,4 +1,4 @@
-# EasyList
+# AndroidEasyList
 [![](https://jitpack.io/v/mostafataghipour/androideasylist.svg)](https://jitpack.io/#mostafataghipour/androideasylist)
 
 ## [iOS version is here](https://github.com/MostafaTaghipour/iOSEasyList)
@@ -42,7 +42,7 @@ Add the dependency to your module's `build.gradle` file:
 ```Gradle
 dependencies {
     ...
-    compile 'com.github.mostafataghipour:androideasylist:1.0.1'
+    compile 'com.github.mostafataghipour:androideasylist:1.0.2'
 }
 ```
 

@@ -53,6 +53,7 @@ class EndlessAdapter(context: Context) :
 
 
     override fun generateViewHolder(inflater: LayoutInflater, viewType: Int, viewGroup: ViewGroup): RecyclerView.ViewHolder {
+        
         return when(viewType){
             POPULAR->{
                 val view = inflater.inflate( R.layout.item_popular_list, viewGroup,false)

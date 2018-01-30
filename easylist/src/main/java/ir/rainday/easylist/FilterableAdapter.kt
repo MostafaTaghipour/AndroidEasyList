@@ -1,4 +1,4 @@
-package com.hojan.mobile.pharmacy.easylist
+package ir.rainday.easylist
 
 import android.widget.Filter
 import android.widget.Filterable
