@@ -10,10 +10,12 @@ import android.view.ViewGroup
  */
 interface ExpandableAdapter : GroupedAdapter {
 
+    private val adapter: RecyclerViewAdapter<*>
+        get() = this as RecyclerViewAdapter<*>
+
     override fun isHeader(position: Int): Boolean {
         return isHeader(adapter.items!![position])
     }
-
 
     fun _tryToMapList(newList: List<Any>): List<Any> {
 
@@ -58,9 +60,8 @@ interface ExpandableAdapter : GroupedAdapter {
 
 
     override fun bindHeaderView(item: Any, position: Int, holder: RecyclerView.ViewHolder) {
-        bindHeaderView(item,position,holder,isExpanded(position))
+        bindHeaderView(item, position, holder, isExpanded(position))
     }
-
 
 
     fun toggleState(position: Int) {
@@ -79,7 +80,7 @@ interface ExpandableAdapter : GroupedAdapter {
                 collapseAll()
                 Handler().postDelayed({
                     expand(adapter._private_allItems.indexOf(it))
-                },200)
+                }, 200)
 
             }
 
@@ -126,8 +127,7 @@ interface ExpandableAdapter : GroupedAdapter {
     }
 
 
-
-    fun collapseAll(expectPosition: Int? = null,viewHolder: RecyclerView.ViewHolder?=null) {
+    fun collapseAll(expectPosition: Int? = null, viewHolder: RecyclerView.ViewHolder? = null) {
         adapter._private_allItems
                 .filter { isHeader(it) }
                 .map { adapter._private_allItems.indexOf(it) }
@@ -135,7 +135,7 @@ interface ExpandableAdapter : GroupedAdapter {
                 .forEach { collapse(it) }
     }
 
-    fun expandAll(expectPosition: Int? = null,viewHolder: RecyclerView.ViewHolder?=null) {
+    fun expandAll(expectPosition: Int? = null, viewHolder: RecyclerView.ViewHolder? = null) {
         adapter._private_allItems
                 .filter { isHeader(it) }
                 .map { adapter._private_allItems.indexOf(it) }
@@ -145,15 +145,15 @@ interface ExpandableAdapter : GroupedAdapter {
 
 
     // must implements methods
-    val adapter: RecyclerViewAdapter<*>
     val collapseByDefault: Boolean
         get() = true
     val type: Type
         get() = Type.NORMAL
+
     fun isHeader(item: Any): Boolean
     fun bindHeaderView(item: Any, position: Int, holder: RecyclerView.ViewHolder, isExpanded: Boolean)
-    fun onExpand(position: Int){}
-    fun onCollapse(position: Int){}
+    fun onExpand(position: Int) {}
+    fun onCollapse(position: Int) {}
     override fun generateHeaderView(inflater: LayoutInflater, viewType: Int, viewGroup: ViewGroup): RecyclerView.ViewHolder {
         val headerView = inflater.inflate(this.getHeaderLayout(), viewGroup, false)
         val viewHolder = GenericViewHolder(headerView)

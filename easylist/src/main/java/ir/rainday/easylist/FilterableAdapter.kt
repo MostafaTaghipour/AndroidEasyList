@@ -12,6 +12,9 @@ import java.util.ArrayList
 
 interface FilterableAdapter : Filterable {
 
+    private val adapter: RecyclerViewAdapter<*>
+        get() = this as RecyclerViewAdapter<*>
+
     override fun getFilter(): Filter {
         return object : Filter() {
 
@@ -57,7 +60,5 @@ interface FilterableAdapter : Filterable {
     }
 
     // must implements methods
-    val adapter: RecyclerViewAdapter<*>
-
     fun filterItem(constraint: CharSequence, item: Any): Boolean
 }

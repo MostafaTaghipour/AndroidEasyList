@@ -60,7 +60,6 @@ class FilteringActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
             }
 
-            override val adapter = this
 
             override fun filterItem(constraint: CharSequence, item: Any): Boolean {
                 return (item as Movie).title!!.toLowerCase().contains(constraint.toString().toLowerCase())

@@ -85,8 +85,6 @@ class ExpandableAdapter(context: Context, layoutManager: LinearLayoutManager) : 
                 ?.start()
     }
 
-    override var adapter: RecyclerViewAdapter<Any> = this
-
 }
 
 
