@@ -42,7 +42,7 @@ Add the dependency to your module's `build.gradle` file:
 ```Gradle
 dependencies {
     ...
-    compile 'com.github.mostafataghipour:androideasylist:1.0.3'
+    compile 'com.github.mostafataghipour:androideasylist:1.0.4'
 }
 ```
 
@@ -118,5 +118,5 @@ Mostafa Taghipour, mostafa.taghipour@ymail.com
 
 ## License
 
-EasyList is available under the MIT license. See the LICENSE file for more info.
+AndroidEasyList is available under the MIT license. See the LICENSE file for more info.
 
