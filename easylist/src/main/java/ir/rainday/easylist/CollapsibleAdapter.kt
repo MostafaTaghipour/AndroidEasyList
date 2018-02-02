@@ -8,7 +8,7 @@ import android.view.ViewGroup
 /**
  * Created by mostafa-taghipour on 12/29/17.
  */
-interface ExpandableAdapter : GroupedAdapter {
+interface CollapsibleAdapter : GroupedAdapter {
 
     private val adapter: RecyclerViewAdapter<*>
         get() = this as RecyclerViewAdapter<*>
@@ -61,6 +61,16 @@ interface ExpandableAdapter : GroupedAdapter {
 
     override fun bindHeaderView(item: Any, position: Int, holder: RecyclerView.ViewHolder) {
         bindHeaderView(item, position, holder, isExpanded(position))
+    }
+
+    override fun generateHeaderView(inflater: LayoutInflater, viewType: Int, viewGroup: ViewGroup): RecyclerView.ViewHolder {
+        val headerView = inflater.inflate(this.getHeaderLayout(), viewGroup, false)
+        val viewHolder = GenericViewHolder(headerView)
+
+        headerView.setOnClickListener {
+            toggleState(viewHolder.adapterPosition)
+        }
+        return viewHolder
     }
 
 
@@ -127,21 +137,23 @@ interface ExpandableAdapter : GroupedAdapter {
     }
 
 
-    fun collapseAll(expectPosition: Int? = null, viewHolder: RecyclerView.ViewHolder? = null) {
+    fun collapseAll(exceptPosition: Int? = null) {
         adapter._private_allItems
                 .filter { isHeader(it) }
                 .map { adapter._private_allItems.indexOf(it) }
-                .filter { it != expectPosition }
+                .filter { it != exceptPosition }
                 .forEach { collapse(it) }
     }
 
-    fun expandAll(expectPosition: Int? = null, viewHolder: RecyclerView.ViewHolder? = null) {
+    fun expandAll(exceptPosition: Int? = null) {
         adapter._private_allItems
                 .filter { isHeader(it) }
                 .map { adapter._private_allItems.indexOf(it) }
-                .filter { it != expectPosition }
+                .filter { it != exceptPosition }
                 .forEach { expand(it) }
     }
+
+
 
 
     // must implements methods
@@ -154,15 +166,7 @@ interface ExpandableAdapter : GroupedAdapter {
     fun bindHeaderView(item: Any, position: Int, holder: RecyclerView.ViewHolder, isExpanded: Boolean)
     fun onExpand(position: Int) {}
     fun onCollapse(position: Int) {}
-    override fun generateHeaderView(inflater: LayoutInflater, viewType: Int, viewGroup: ViewGroup): RecyclerView.ViewHolder {
-        val headerView = inflater.inflate(this.getHeaderLayout(), viewGroup, false)
-        val viewHolder = GenericViewHolder(headerView)
 
-        headerView.setOnClickListener {
-            toggleState(viewHolder.adapterPosition)
-        }
-        return viewHolder
-    }
 
     enum class Type {
         NORMAL,

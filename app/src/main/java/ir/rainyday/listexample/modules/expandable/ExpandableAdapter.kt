@@ -10,7 +10,7 @@ import ir.rainday.easylist.RecyclerViewAdapter
 import ir.rainyday.listexample.AppHelpers
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.Movie
-import ir.rainday.easylist.ExpandableAdapter
+import ir.rainday.easylist.CollapsibleAdapter
 import java.lang.ref.WeakReference
 
 /**
@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference
  */
 
 
-class ExpandableAdapter(context: Context, layoutManager: LinearLayoutManager) : RecyclerViewAdapter<Any>(context), ExpandableAdapter {
+class ExpandableAdapter(context: Context, layoutManager: LinearLayoutManager) : RecyclerViewAdapter<Any>(context), CollapsibleAdapter {
 
     private val weakLayoutManager: WeakReference<LinearLayoutManager> = WeakReference(layoutManager)
 

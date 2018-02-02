@@ -28,7 +28,7 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
             var newList: List<T> = value ?: ArrayList()
             val oldList: List<T> = items ?: ArrayList<T>()
 
-            if (this is ExpandableAdapter)
+            if (this is CollapsibleAdapter)
                 newList = this._tryToMapList(newList) as List<T>
 
             if (this is FilterableAdapter && !_private_lockNonefilteredItems)

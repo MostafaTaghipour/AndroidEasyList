@@ -50,7 +50,8 @@ data class Movie(
 
 
         var ratio: Float = randFloat(0.5f, 1f)
-) : Diffable {
+)
+: Diffable {
     override val diffableIdentity: String
         get() = title!!
 

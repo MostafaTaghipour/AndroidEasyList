@@ -7,11 +7,11 @@ Framework to simplify the setup and configuration of Recyclerview adapter. It al
 
 
 Everything you need to implement your own lists:
-- Easy to use UITableView and UICollectionView
+- Easy to use RecyclerView
 - Diffable
 - Header and footer
 - Pagination
-- Expandable
+- Collapsiple
 - Loading footer
 - Empty View
 - Filterable
@@ -49,7 +49,27 @@ dependencies {
 
 
 ## Usage
-1. Define `RecyclerViewAdapter`
+1. Define your model
+```kotlin
+data class Movie(
+    val id : String,
+    val title : String
+)
+
+//optional: If you want to use DiffUtil capabilities (e.g. automatic animations like delete, insert, move , reload)
+//          inherit 'Diffable' ptotocol
+: Diffable {
+    override val diffableIdentity: String
+        get() = title!!
+
+    //optional: this function need for automatic reload
+    override fun isEqualTo(other: Any): Boolean {
+        return if (other is Movie) return this == other else false
+    }
+}
+```
+
+2. Define `RecyclerViewAdapter`
 ```kotlin
 private val adapter: RecyclerViewAdapter<Movie> by lazy {
 
@@ -60,20 +80,9 @@ private val adapter: RecyclerViewAdapter<Movie> by lazy {
 
         override fun bindView(item: Movie, position: Int, viewHolder: RecyclerView.ViewHolder) {
             viewHolder as GenericViewHolder
+            
             val mMovieTitle: TextView? = viewHolder.getView<TextView>(R.id.movie_title)
-            val mMovieDesc: TextView? = viewHolder.getView<TextView>(R.id.movie_desc)
-            val mYear: TextView? = viewHolder.getView<TextView>(R.id.movie_year)
-            val mPosterImg: ImageView? = viewHolder.getView<ImageView>(R.id.movie_poster)
-
-
             mMovieTitle?.text = item.title
-            mYear?.text = AppHelpers.formatYearLabel(item)
-            mMovieDesc?.text = item.overview
-
-            // load movie thumbnail
-            AppHelpers.loadImage(context, item.posterPath!!)
-                .into(mPosterImg)
-
         }
     }
         
@@ -90,12 +99,12 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 ```
 
-2. Set Data
+3. Set Data
 ```kotlin
     adapter.items = yourItems
 ```
 
-3. That's it, for more samples please see example project
+4. That's it, for more samples please see example project
 
 ## Thanks for
 
