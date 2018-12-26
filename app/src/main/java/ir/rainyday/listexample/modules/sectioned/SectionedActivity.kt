@@ -1,24 +1,23 @@
 package ir.rainyday.listexample.modules.sectioned
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ir.rainday.easylist.PinnedHeaderItemDecoration
 import ir.rainyday.listexample.R
 import kotlinx.android.synthetic.main.content_sectioned.*
-
 import kotlinx.android.synthetic.main.layout_regular_appbar.*
-import ir.rainday.easylist.PinnedHeaderItemDecoration
 
 
 class SectionedActivity : AppCompatActivity() {
 
     private val recyclerView: RecyclerView by lazy {
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         main_recycler?.layoutManager = linearLayoutManager
 
         // add PinnedHeader as recyclerview ItemDecoration

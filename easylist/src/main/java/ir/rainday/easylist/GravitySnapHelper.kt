@@ -5,22 +5,19 @@ package ir.rainday.easylist
  */
 
 import android.os.Build
-import android.support.annotation.Nullable
-import android.support.v7.widget.*
+import androidx.annotation.Nullable
 import android.text.TextUtils
 import android.view.Gravity
 import android.view.View
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import java.util.*
 
 
 class GravitySnapHelper @JvmOverloads constructor(gravity: Int, enableSnapLastItem: Boolean = false,
-                                                  snapListener: SnapListener? = null) : LinearSnapHelper() {
+                                                  snapListener: SnapListener? = null) : androidx.recyclerview.widget.LinearSnapHelper() {
 
-    private val delegate: GravityDelegate
-
-    init {
-        delegate = GravityDelegate(gravity, enableSnapLastItem, snapListener)
-    }
+    private val delegate: GravityDelegate = GravityDelegate(gravity, enableSnapLastItem, snapListener)
 
     @Throws(IllegalStateException::class)
     override fun attachToRecyclerView(recyclerView: RecyclerView?) {
@@ -58,18 +55,18 @@ class GravitySnapHelper @JvmOverloads constructor(gravity: Int, enableSnapLastIt
 internal class GravityDelegate(private val gravity: Int, private var snapLastItem: Boolean,
                                @param:Nullable private val listener: GravitySnapHelper.SnapListener?) {
 
-    private var verticalHelper: OrientationHelper? = null
-    private var horizontalHelper: OrientationHelper? = null
+    private var verticalHelper: androidx.recyclerview.widget.OrientationHelper? = null
+    private var horizontalHelper: androidx.recyclerview.widget.OrientationHelper? = null
     private var isRtlHorizontal: Boolean = false
     private var snapping: Boolean = false
     private val mScrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             super.onScrollStateChanged(recyclerView, newState)
             if (newState == RecyclerView.SCROLL_STATE_SETTLING) {
                 snapping = false
             }
             if (newState == RecyclerView.SCROLL_STATE_IDLE && snapping && listener != null) {
-                val position = getSnappedPosition(recyclerView!!)
+                val position = getSnappedPosition(recyclerView)
                 if (position != RecyclerView.NO_POSITION) {
                     listener.onSnap(position)
                 }
@@ -148,14 +145,14 @@ internal class GravityDelegate(private val gravity: Int, private var snapLastIte
         snapLastItem = snap
     }
 
-    private fun distanceToStart(targetView: View, helper: OrientationHelper, fromEnd: Boolean): Int {
+    private fun distanceToStart(targetView: View, helper: androidx.recyclerview.widget.OrientationHelper, fromEnd: Boolean): Int {
         return if (isRtlHorizontal && !fromEnd) {
             distanceToEnd(targetView, helper, true)
         } else helper.getDecoratedStart(targetView) - helper.startAfterPadding
 
     }
 
-    private fun distanceToEnd(targetView: View, helper: OrientationHelper, fromStart: Boolean): Int {
+    private fun distanceToEnd(targetView: View, helper: androidx.recyclerview.widget.OrientationHelper, fromStart: Boolean): Int {
         return if (isRtlHorizontal && !fromStart) {
             distanceToStart(targetView, helper, true)
         } else helper.getDecoratedEnd(targetView) - helper.endAfterPadding
@@ -171,7 +168,7 @@ internal class GravityDelegate(private val gravity: Int, private var snapLastIte
      */
     @Nullable
     private fun findStartView(layoutManager: RecyclerView.LayoutManager,
-                              helper: OrientationHelper): View? {
+                              helper: androidx.recyclerview.widget.OrientationHelper): View? {
 
         if (layoutManager is LinearLayoutManager) {
             val reverseLayout = layoutManager.reverseLayout
@@ -181,7 +178,7 @@ internal class GravityDelegate(private val gravity: Int, private var snapLastIte
                 layoutManager.findFirstVisibleItemPosition()
             var offset = 1
 
-            if (layoutManager is GridLayoutManager) {
+            if (layoutManager is androidx.recyclerview.widget.GridLayoutManager) {
                 offset += layoutManager.spanCount - 1
             }
 
@@ -234,7 +231,7 @@ internal class GravityDelegate(private val gravity: Int, private var snapLastIte
 
     @Nullable
     private fun findEndView(layoutManager: RecyclerView.LayoutManager,
-                            helper: OrientationHelper): View? {
+                            helper: androidx.recyclerview.widget.OrientationHelper): View? {
 
         if (layoutManager is LinearLayoutManager) {
             val reverseLayout = layoutManager.reverseLayout
@@ -244,7 +241,7 @@ internal class GravityDelegate(private val gravity: Int, private var snapLastIte
                 layoutManager.findLastVisibleItemPosition()
             var offset = 1
 
-            if (layoutManager is GridLayoutManager) {
+            if (layoutManager is androidx.recyclerview.widget.GridLayoutManager) {
                 offset += layoutManager.spanCount - 1
             }
 
@@ -304,16 +301,16 @@ internal class GravityDelegate(private val gravity: Int, private var snapLastIte
         return RecyclerView.NO_POSITION
     }
 
-    private fun getVerticalHelper(layoutManager: RecyclerView.LayoutManager): OrientationHelper {
+    private fun getVerticalHelper(layoutManager: RecyclerView.LayoutManager): androidx.recyclerview.widget.OrientationHelper {
         if (verticalHelper == null) {
-            verticalHelper = OrientationHelper.createVerticalHelper(layoutManager)
+            verticalHelper = androidx.recyclerview.widget.OrientationHelper.createVerticalHelper(layoutManager)
         }
         return verticalHelper!!
     }
 
-    private fun getHorizontalHelper(layoutManager: RecyclerView.LayoutManager): OrientationHelper {
+    private fun getHorizontalHelper(layoutManager: RecyclerView.LayoutManager): androidx.recyclerview.widget.OrientationHelper {
         if (horizontalHelper == null) {
-            horizontalHelper = OrientationHelper.createHorizontalHelper(layoutManager)
+            horizontalHelper = androidx.recyclerview.widget.OrientationHelper.createHorizontalHelper(layoutManager)
         }
         return horizontalHelper!!
     }

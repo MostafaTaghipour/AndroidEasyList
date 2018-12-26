@@ -1,6 +1,6 @@
 package ir.rainday.easylist
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 
 /**
@@ -22,34 +22,29 @@ class DiffCallback(private val oldList: List<*>, private val newList: List<*>) :
         val newItem = newList[newItemPosition]
 
 
-        if (oldItem is Diffable && newItem is Diffable)
-            return oldItem.diffableIdentity == newItem.diffableIdentity
-
-        return oldItem == newItem
+        return if (oldItem is Diffable && newItem is Diffable)
+            oldItem.diffableIdentity == newItem.diffableIdentity
+        else
+            oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
         val oldItem = oldList[oldItemPosition]
         val newItem = newList[newItemPosition]
 
-        if (oldItem is Diffable && newItem != null)
-            return oldItem.isEqualTo(newItem)
-
-
-        return oldItem == newItem
+        return if (oldItem is Diffable && newItem != null)
+            oldItem.isEqualTo(newItem)
+        else
+            oldItem == newItem
     }
 
-    override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
-        // Implement method if you're going to use ItemAnimator
-        return super.getChangePayload(oldItemPosition, newItemPosition)
-    }
 }
 
 
 interface Diffable {
     val diffableIdentity: String
     fun isEqualTo(other: Any): Boolean {
-       return this == other
+        return this == other
     }
 }
 

@@ -1,9 +1,9 @@
 package ir.rainday.easylist
 
 import android.os.Handler
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Created by mostafa-taghipour on 12/29/17.

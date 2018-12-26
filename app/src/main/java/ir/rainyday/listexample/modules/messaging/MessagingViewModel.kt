@@ -1,7 +1,7 @@
 package ir.rainyday.listexample.modules.messaging
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import android.text.Editable
 import ir.rainyday.listexample.model.Message
 import ir.rainyday.listexample.model.me

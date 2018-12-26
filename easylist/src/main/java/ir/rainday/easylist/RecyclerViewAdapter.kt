@@ -1,13 +1,12 @@
 package ir.rainday.easylist
 
 import android.content.Context
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import kotlin.collections.HashMap
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 
 
 /**
@@ -16,46 +15,55 @@ import kotlin.collections.HashMap
 @Suppress("UNCHECKED_CAST")
 abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-   internal val _private_selectedItems: SparseBooleanArray = SparseBooleanArray()
-    internal  val _private_allItems: MutableList<Any> = ArrayList()
+    internal val _private_selectedItems: SparseBooleanArray = SparseBooleanArray()
+    internal val _private_allItems: MutableList<Any> = mutableListOf()
     internal var _private_lockNonefilteredItems = false
     internal var _private_nonefilteredItems: List<Any> = ArrayList()
     internal val _private_expandMap = HashMap<Any, List<Any>>()
 
+
     var items: List<T>?
         set(value) {
-
-            var newList: List<T> = value ?: ArrayList()
-            val oldList: List<T> = items ?: ArrayList<T>()
-
-            if (this is CollapsibleAdapter)
-                newList = this._tryToMapList(newList) as List<T>
-
-            if (this is FilterableAdapter && !_private_lockNonefilteredItems)
-                _private_nonefilteredItems = newList
-
-
-            if (isAnimationEnabled) {
-                val diffResult = DiffUtil.calculateDiff(DiffCallback(oldList, newList))
-
-                _private_allItems.clear()
-                _private_allItems.addAll(newList)
-
-                diffResult.dispatchUpdatesTo(this)
-            } else {
-                _private_allItems.clear()
-                _private_allItems.addAll(newList)
-                notifyDataSetChanged()
-            }
+            setNewItems(value)
         }
         get() {
-
-            var res: List<Any> = _private_allItems
-            if (this is LoadingFooterAdapter)
-                res = _tryToFilterItems(res)
-
-            return res as? List<T>
+            return getPureItems()
         }
+
+
+    private fun setNewItems(value: List<T>?) {
+        var newList: List<T> = value ?: ArrayList()
+        val oldList: List<T> = getPureItems() ?: ArrayList<T>()
+
+        if (this is CollapsibleAdapter)
+            newList = this._tryToMapList(newList) as List<T>
+
+        if (this is FilterableAdapter && !_private_lockNonefilteredItems)
+            _private_nonefilteredItems = newList
+
+
+        if (isAnimationEnabled) {
+            val diffResult = DiffUtil.calculateDiff(DiffCallback(oldList, newList))
+
+            _private_allItems.clear()
+            _private_allItems.addAll(newList)
+
+            diffResult.dispatchUpdatesTo(this)
+
+        } else {
+            _private_allItems.clear()
+            _private_allItems.addAll(newList)
+            notifyDataSetChanged()
+        }
+    }
+
+    private fun getPureItems(): List<T>? {
+        var res: List<Any> = _private_allItems
+        if (this is LoadingFooterAdapter)
+            res = _tryToFilterItems(res)
+
+        return res as? List<T>
+    }
 
     var isAnimationEnabled: Boolean = true
 

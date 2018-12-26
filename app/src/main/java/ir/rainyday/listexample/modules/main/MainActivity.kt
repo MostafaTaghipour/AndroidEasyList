@@ -2,7 +2,7 @@ package ir.rainyday.listexample.modules.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.content_main.*
 import kotlinx.android.synthetic.main.layout_regular_appbar.*
 import ir.rainyday.listexample.R

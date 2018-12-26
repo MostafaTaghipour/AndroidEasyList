@@ -1,32 +1,31 @@
 package ir.rainyday.listexample.modules.animation
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.Snackbar
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.view.ActionMode
-import android.support.v7.widget.DividerItemDecoration
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ActionMode
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
+import ir.rainday.easylist.DragAndSwipeItemTouchHelperCallback
 import ir.rainday.easylist.GenericViewHolder
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.DateModel
-import ir.rainday.easylist.DragAndSwipeItemTouchHelperCallback
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 import kotlinx.android.synthetic.main.content_filtering.*
 import kotlinx.android.synthetic.main.layout_regular_appbar.*
-import java.util.*
-import android.widget.EditText
 import java.text.SimpleDateFormat
+import java.util.*
 
 
 class AnimationActivity : AppCompatActivity(),
@@ -53,7 +52,7 @@ class AnimationActivity : AppCompatActivity(),
             override fun onAnimationEnd(p0: Animation?) {
 
                 //add divider
-                val dividerItemDecoration = DividerItemDecoration(this@AnimationActivity,
+                val dividerItemDecoration = androidx.recyclerview.widget.DividerItemDecoration(this@AnimationActivity,
                         linearLayoutManager.orientation)
                 main_recycler.addItemDecoration(dividerItemDecoration)
             }

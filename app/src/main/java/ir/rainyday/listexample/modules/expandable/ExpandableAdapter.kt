@@ -1,16 +1,16 @@
 package ir.rainyday.listexample.modules.expandable
 
 import android.content.Context
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import ir.rainday.easylist.CollapsibleAdapter
 import ir.rainday.easylist.GenericViewHolder
 import ir.rainday.easylist.RecyclerViewAdapter
 import ir.rainyday.listexample.AppHelpers
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.Movie
-import ir.rainday.easylist.CollapsibleAdapter
 import java.lang.ref.WeakReference
 
 /**
@@ -30,10 +30,10 @@ class ExpandableAdapter(context: Context, layoutManager: LinearLayoutManager) : 
         viewHolder as GenericViewHolder
         if (item is Movie) {
 
-            val mMovieTitle: TextView? = viewHolder.getView<TextView>(R.id.movie_title)
-            val mMovieDesc: TextView? = viewHolder.getView<TextView>(R.id.movie_desc)
-            val mYear: TextView? = viewHolder.getView<TextView>(R.id.movie_year)
-            val mPosterImg: ImageView? = viewHolder.getView<ImageView>(R.id.movie_poster)
+            val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
+            val mMovieDesc: TextView? = viewHolder.getView(R.id.movie_desc)
+            val mYear: TextView? = viewHolder.getView(R.id.movie_year)
+            val mPosterImg: ImageView? = viewHolder.getView(R.id.movie_poster)
 
 
             mMovieTitle?.text = item.title

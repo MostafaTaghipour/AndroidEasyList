@@ -1,24 +1,24 @@
 package ir.rainyday.listexample.modules.endless
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
+import android.view.Gravity
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import ir.rainday.easylist.RecyclerViewAdapter
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ir.rainday.easylist.GenericViewHolder
+import ir.rainday.easylist.GravitySnapHelper
+import ir.rainday.easylist.LoadingFooterAdapter
+import ir.rainday.easylist.RecyclerViewAdapter
 import ir.rainyday.listexample.AppHelpers
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.Movie
 import ir.rainyday.listexample.model.PopularMovies
 import java.lang.ref.WeakReference
-import android.support.v7.widget.LinearLayoutManager
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.ViewGroup
-import ir.rainday.easylist.GravitySnapHelper
-import ir.rainday.easylist.LoadingFooterAdapter
 
 
 /**
@@ -86,8 +86,6 @@ class EndlessAdapter(context: Context) :
         return if (items!![position] is PopularMovies) POPULAR else if (position % 10 == 0) HERO else ITEM
     }
 
-    override val adapter: RecyclerViewAdapter<*> = this
-
     override fun getLoadingLayout(): Int {
         return R.layout.item_progress
     }
@@ -127,11 +125,11 @@ class EndlessAdapter(context: Context) :
 
 
 
-class ItemViewHolder(var context: Context,itemView:View):RecyclerView.ViewHolder(itemView){
-    private val mMovieTitle: TextView = itemView.findViewById<TextView>(R.id.movie_title)
-    private val mMovieDesc: TextView? = itemView.findViewById<TextView>(R.id.movie_desc)
-    private val mYear: TextView? = itemView.findViewById<TextView>(R.id.movie_year)
-    private val mPosterImg: ImageView? = itemView.findViewById<ImageView>(R.id.movie_poster)
+class ItemViewHolder(var context: Context,itemView:View): RecyclerView.ViewHolder(itemView){
+    private val mMovieTitle: TextView = itemView.findViewById(R.id.movie_title)
+    private val mMovieDesc: TextView? = itemView.findViewById(R.id.movie_desc)
+    private val mYear: TextView? = itemView.findViewById(R.id.movie_year)
+    private val mPosterImg: ImageView? = itemView.findViewById(R.id.movie_poster)
 
     fun bindView(item: Movie){
 
@@ -146,11 +144,11 @@ class ItemViewHolder(var context: Context,itemView:View):RecyclerView.ViewHolder
 
 }
 
-class HeroViewHolder(var context: Context,itemView:View):RecyclerView.ViewHolder(itemView){
-    private val mMovieTitle: TextView = itemView.findViewById<TextView>(R.id.movie_title)
-    private val mMovieDesc: TextView? = itemView.findViewById<TextView>(R.id.movie_desc)
-    private val mYear: TextView? = itemView.findViewById<TextView>(R.id.movie_year)
-    private val mPosterImg: ImageView? = itemView.findViewById<ImageView>(R.id.movie_poster)
+class HeroViewHolder(var context: Context,itemView:View): RecyclerView.ViewHolder(itemView){
+    private val mMovieTitle: TextView = itemView.findViewById(R.id.movie_title)
+    private val mMovieDesc: TextView? = itemView.findViewById(R.id.movie_desc)
+    private val mYear: TextView? = itemView.findViewById(R.id.movie_year)
+    private val mPosterImg: ImageView? = itemView.findViewById(R.id.movie_poster)
 
     fun bindView(item: Movie){
 
@@ -166,14 +164,14 @@ class HeroViewHolder(var context: Context,itemView:View):RecyclerView.ViewHolder
 
 }
 
-class PopularsViewHolder(var context: Context,itemView:View,var contract: Contract):RecyclerView.ViewHolder(itemView){
+class PopularsViewHolder(var context: Context,itemView:View,var contract: Contract): RecyclerView.ViewHolder(itemView){
     private var recyclerView : RecyclerView
     private var popularAdapter: RecyclerViewAdapter<Movie>
     private var currentPosition:Int=0
 
 
     init {
-        recyclerView=itemView.findViewById<RecyclerView>(R.id.horizontal_recyclerview)
+        recyclerView=itemView.findViewById(R.id.horizontal_recyclerview)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.layoutManager = layoutManager
         popularAdapter = object : RecyclerViewAdapter<Movie>(context){
@@ -192,10 +190,10 @@ class PopularsViewHolder(var context: Context,itemView:View,var contract: Contra
         val snapHelper = GravitySnapHelper(Gravity.START)
         snapHelper.attachToRecyclerView(recyclerView)
         //keep inner list position
-        recyclerView.addOnScrollListener(object :RecyclerView.OnScrollListener(){
-            override fun onScrollStateChanged(recyclerView: RecyclerView?, newState: Int) {
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 super.onScrollStateChanged(recyclerView, newState)
-                val itemPosition = (recyclerView!!.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
+                val itemPosition = (recyclerView.layoutManager as LinearLayoutManager).findLastCompletelyVisibleItemPosition()
                 contract.innerListPositions[currentPosition] = itemPosition
             }
         })

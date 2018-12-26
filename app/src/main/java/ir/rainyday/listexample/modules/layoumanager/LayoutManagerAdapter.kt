@@ -1,12 +1,12 @@
 package ir.rainyday.listexample.modules.layoumanager
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import ir.rainday.easylist.GenericViewHolder
 import ir.rainday.easylist.RecyclerViewAdapter
 import ir.rainyday.listexample.AppHelpers
@@ -44,10 +44,10 @@ class LayoutManagerAdapter(context: Context) : RecyclerViewAdapter<Movie>(contex
 
         if (itemType == LayoutType.Linear.value) {
 
-            val mMovieTitle: TextView? = viewHolder.getView<TextView>(R.id.movie_title)
-            val mMovieDesc: TextView? = viewHolder.getView<TextView>(R.id.movie_desc)
-            val mYear: TextView? = viewHolder.getView<TextView>(R.id.movie_year)
-            val mPosterImg: ImageView? = viewHolder.getView<ImageView>(R.id.movie_poster)
+            val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
+            val mMovieDesc: TextView? = viewHolder.getView(R.id.movie_desc)
+            val mYear: TextView? = viewHolder.getView(R.id.movie_year)
+            val mPosterImg: ImageView? = viewHolder.getView(R.id.movie_poster)
 
 
             mMovieTitle?.text = item.title
@@ -59,8 +59,8 @@ class LayoutManagerAdapter(context: Context) : RecyclerViewAdapter<Movie>(contex
                     .into(mPosterImg)
         } else if (itemType == LayoutType.Grid.value) {
 
-            val mMovieTitle: TextView? = viewHolder.getView<TextView>(R.id.movie_title)
-            val mPosterImg: ImageView = viewHolder.getView<ImageView>(R.id.movie_poster)!!
+            val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
+            val mPosterImg: ImageView = viewHolder.getView(R.id.movie_poster)!!
 
 
             mMovieTitle?.text = item.title
@@ -71,9 +71,9 @@ class LayoutManagerAdapter(context: Context) : RecyclerViewAdapter<Movie>(contex
 
         } else if (itemType == LayoutType.Spanned.value) {
 
-            val mMovieTitle: TextView? = viewHolder.getView<TextView>(R.id.movie_title)
-            val mPosterImg: ImageView = viewHolder.getView<ImageView>(R.id.movie_poster)!!
-            val mContainer: View = viewHolder.getView<View>(R.id.container)!!
+            val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
+            val mPosterImg: ImageView = viewHolder.getView(R.id.movie_poster)!!
+            val mContainer: View = viewHolder.getView(R.id.container)!!
 
             mMovieTitle?.text = item.title
 
@@ -102,8 +102,8 @@ class LayoutManagerAdapter(context: Context) : RecyclerViewAdapter<Movie>(contex
         }
 
         else{
-            val mMovieTitle: TextView? = viewHolder.getView<TextView>(R.id.title)
-            val mPosterImg: ImageView = viewHolder.getView<ImageView>(R.id.image)!!
+            val mMovieTitle: TextView? = viewHolder.getView(R.id.title)
+            val mPosterImg: ImageView = viewHolder.getView(R.id.image)!!
 
 
             mMovieTitle?.text = item.title

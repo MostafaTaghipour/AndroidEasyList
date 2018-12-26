@@ -1,7 +1,7 @@
 package ir.rainday.easylist
 
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Created by mostafa-taghipour on 12/21/17.
@@ -21,10 +21,10 @@ abstract class PaginatedRecyclerOnScrollListener(private val mLinearLayoutManage
 
     var pageSize: Int? = null
 
-    override fun onScrolled(recyclerView: RecyclerView?, dx: Int, dy: Int) {
+    override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)
 
-       val visibleItemCount = recyclerView!!.childCount
+       val visibleItemCount = recyclerView.childCount
       val totalItemCount = mLinearLayoutManager.itemCount
        val firstVisibleItem = mLinearLayoutManager.findFirstVisibleItemPosition()
 

@@ -1,10 +1,10 @@
 package ir.rainyday.listexample.modules.messaging
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
-import android.support.v7.widget.RecyclerView
+import androidx.core.content.ContextCompat
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import ir.rainday.easylist.RecyclerViewAdapter
 import ir.rainday.easylist.GenericViewHolder
 import ir.rainyday.listexample.R
@@ -18,8 +18,8 @@ import ir.rainyday.listexample.model.me
 class MessagingAdapter(context: Context) : RecyclerViewAdapter<Message>(context) {
 
     companion object {
-        private val VIEW_TYPE_MESSAGE_SENT = 1
-        private val VIEW_TYPE_MESSAGE_RECEIVED = 2
+        private const val VIEW_TYPE_MESSAGE_SENT = 1
+        private const val VIEW_TYPE_MESSAGE_RECEIVED = 2
     }
 
 

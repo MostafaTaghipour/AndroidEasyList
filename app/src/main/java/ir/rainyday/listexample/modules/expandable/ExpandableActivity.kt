@@ -1,14 +1,14 @@
 package ir.rainyday.listexample.modules.expandable
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ir.rainyday.listexample.R
-
-import kotlinx.android.synthetic.main.layout_regular_appbar.*
 import kotlinx.android.synthetic.main.content_expandable.*
+import kotlinx.android.synthetic.main.layout_regular_appbar.*
 
 
 class ExpandableActivity : AppCompatActivity() {
@@ -24,7 +24,7 @@ class ExpandableActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         supportActionBar?.setDisplayShowHomeEnabled(true);
 
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         main_recycler.layoutManager = linearLayoutManager
         val adapter = ExpandableAdapter(this, linearLayoutManager)
         main_recycler.adapter = adapter

@@ -1,8 +1,8 @@
 package ir.rainday.easylist
 
 import android.graphics.Canvas
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.helper.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import java.lang.ref.WeakReference
 
 /**
@@ -63,7 +63,7 @@ class DragAndSwipeItemTouchHelperCallback(callback: Callback) : ItemTouchHelper.
         super.onSelectedChanged(viewHolder, actionState)
     }
 
-    override fun clearView(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder) {
+    override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
         super.clearView(recyclerView, viewHolder)
 
         callback?.get()?.onItemDeselect(viewHolder)

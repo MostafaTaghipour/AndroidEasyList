@@ -42,7 +42,7 @@ Add the dependency to your module's `build.gradle` file:
 ```Gradle
 dependencies {
     ...
-    compile 'com.github.mostafataghipour:androideasylist:1.0.4'
+    compile 'com.github.mostafataghipour:androideasylist:1.0.5'
 }
 ```
 

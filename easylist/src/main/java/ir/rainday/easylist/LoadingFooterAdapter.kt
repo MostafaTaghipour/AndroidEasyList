@@ -1,14 +1,18 @@
 package ir.rainday.easylist
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 
 /**
  * Created by mostafa-taghipour on 12/22/17.
  */
 
 interface LoadingFooterAdapter {
+
+    private val adapter: RecyclerViewAdapter<*>
+        get() = this as RecyclerViewAdapter<*>
+
     private val _loadingToken
         get() = "loading_token"
 
@@ -129,7 +133,6 @@ interface LoadingFooterAdapter {
 
 
     // must implements methods
-    val adapter: RecyclerViewAdapter<*>
     fun getLoadingLayout(): Int
     fun getRetryLayout(): Int? = null
     fun bindLoadingView(viewHolder: RecyclerView.ViewHolder) {}

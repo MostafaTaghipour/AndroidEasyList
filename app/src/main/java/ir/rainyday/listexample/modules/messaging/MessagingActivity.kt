@@ -1,16 +1,16 @@
 package ir.rainyday.listexample.modules.messaging
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import ir.rainyday.listexample.R
 import kotlinx.android.synthetic.main.content_messaging.*
 import kotlinx.android.synthetic.main.layout_regular_appbar.*
@@ -21,7 +21,7 @@ class MessagingActivity : AppCompatActivity() {
     val adapter = MessagingAdapter(this)
 
     private val recyclerView: RecyclerView by lazy {
-        val linearLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val linearLayoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         linearLayoutManager.reverseLayout = true
         reyclerview_message_list?.layoutManager = linearLayoutManager
         reyclerview_message_list.setHasFixedSize(true)

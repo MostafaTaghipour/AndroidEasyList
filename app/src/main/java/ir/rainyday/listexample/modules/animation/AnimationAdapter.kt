@@ -1,9 +1,9 @@
 package ir.rainyday.listexample.modules.animation
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import ir.rainday.easylist.RecyclerViewAdapter
 import ir.rainday.easylist.GenericViewHolder
 import ir.rainday.easylist.SelectableAdapter
@@ -36,9 +36,9 @@ class AnimationAdapter(
     override fun bindView(item: DateModel, position: Int, viewHolder: RecyclerView.ViewHolder) {
        viewHolder as GenericViewHolder
 
-        val rootView = viewHolder.getView<View>(0)!!
-        val mDate: TextView? = viewHolder.getView<TextView>(R.id.date)
-        val editButton: View? = viewHolder.getView<View>(R.id.editButton)
+
+        val mDate: TextView? = viewHolder.getView(R.id.date)
+        val editButton: View? = viewHolder.getView(R.id.editButton)
         mDate?.text = item.date.toString()
 
         editButton?.setOnClickListener(null)
@@ -46,6 +46,8 @@ class AnimationAdapter(
             listener?.update(item, position)
         }
         editButton?.visibility = if (actionMode) View.VISIBLE else View.INVISIBLE
+
+        //val rootView = viewHolder.getView<View>(0)!!
         //setAnimation(rootView!!, position)
 
     }
@@ -76,7 +78,7 @@ class AnimationAdapter(
 
     }
 
-    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder?) {
+    override fun onViewDetachedFromWindow(holder: RecyclerView.ViewHolder) {
         (holder as GenericViewHolder).clearAnimation()
         super.onViewDetachedFromWindow(holder)
     }

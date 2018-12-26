@@ -1,9 +1,9 @@
 package ir.rainyday.listexample.modules.sectioned
 
 import android.content.Context
-import android.support.v7.widget.RecyclerView
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import ir.rainday.easylist.RecyclerViewAdapter
 import ir.rainday.easylist.GenericViewHolder
 import com.l4digital.fastscroll.FastScroller
@@ -34,10 +34,10 @@ class SectionedAdapter(context: Context): RecyclerViewAdapter<Any>(context),
          viewHolder as GenericViewHolder
         if (item is Movie) {
 
-            val mMovieTitle: TextView? = viewHolder.getView<TextView>(R.id.movie_title)
-            val mMovieDesc: TextView? = viewHolder.getView<TextView>(R.id.movie_desc)
-            val mYear: TextView? = viewHolder.getView<TextView>(R.id.movie_year)
-            val mPosterImg: ImageView? = viewHolder.getView<ImageView>(R.id.movie_poster)
+            val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
+            val mMovieDesc: TextView? = viewHolder.getView(R.id.movie_desc)
+            val mYear: TextView? = viewHolder.getView(R.id.movie_year)
+            val mPosterImg: ImageView? = viewHolder.getView(R.id.movie_poster)
 
 
             mMovieTitle?.text = item.title
@@ -62,7 +62,7 @@ class SectionedAdapter(context: Context): RecyclerViewAdapter<Any>(context),
     override fun bindHeaderView(item: Any, position: Int, holder: RecyclerView.ViewHolder) {
        holder as GenericViewHolder
         if (item is Char) {
-            val title: TextView? = holder.getView<TextView>(R.id.heder_text)
+            val title: TextView? = holder.getView(R.id.heder_text)
             title?.text = item.toString()
         }
 

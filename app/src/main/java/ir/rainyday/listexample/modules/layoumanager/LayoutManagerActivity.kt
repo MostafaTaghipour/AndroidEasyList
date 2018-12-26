@@ -1,15 +1,15 @@
 package ir.rainyday.listexample.modules.layoumanager
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.support.v7.widget.StaggeredGridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.xiaofeng.flowlayoutmanager.Alignment
 import com.xiaofeng.flowlayoutmanager.FlowLayoutManager
 import ir.rainyday.listexample.R
@@ -33,7 +33,7 @@ class LayoutManagerActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
         supportActionBar?.setDisplayShowHomeEnabled(true);
 
-        layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
         main_recycler.layoutManager = layoutManager
         adapter = LayoutManagerAdapter(this)
         main_recycler.adapter = adapter
@@ -98,13 +98,13 @@ class LayoutManagerActivity : AppCompatActivity() {
 
         layoutManager = when (layoutManagerType) {
             LayoutType.Linear -> {
-                LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+               LinearLayoutManager(this, RecyclerView.VERTICAL, false)
             }
             LayoutType.Grid -> {
                 GridLayoutManager(this, 2)
             }
             LayoutType.Spanned -> {
-                val gridLayoutManager = GridLayoutManager(this, 4)
+                val gridLayoutManager =GridLayoutManager(this, 4)
                 gridLayoutManager.spanSizeLookup=object : GridLayoutManager.SpanSizeLookup(){
                     override fun getSpanSize(position: Int): Int {
                        if (position<4)
@@ -117,7 +117,7 @@ class LayoutManagerActivity : AppCompatActivity() {
 
             }
             LayoutType.Staggered  -> {
-                StaggeredGridLayoutManager(3,StaggeredGridLayoutManager.VERTICAL)
+                StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL)
             }
             LayoutType.Flow -> {
                 val flowLayoutManager = FlowLayoutManager()

@@ -1,7 +1,7 @@
 package ir.rainyday.listexample.modules.endless
 
-import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.ViewModel
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import android.graphics.pdf.PdfDocument
 import ir.rainyday.listexample.api.MovieApi
 import ir.rainyday.listexample.api.MovieService

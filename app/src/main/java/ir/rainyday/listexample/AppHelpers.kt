@@ -1,7 +1,7 @@
 package ir.rainyday.listexample
 
 import android.content.Context
-import android.support.v7.widget.AppCompatEditText
+import androidx.appcompat.widget.AppCompatEditText
 import android.util.AttributeSet
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
@@ -23,8 +23,6 @@ import java.util.*
 
 object AppHelpers {
 
-
-
      fun formatYearLabel(result: Movie): String {
         return (result.releaseDate?.substring(0, 4)  // we want the year only
 
@@ -32,7 +30,7 @@ object AppHelpers {
                 + result.originalLanguage?.toUpperCase())
     }
 
-     fun loadImage(context: Context,posterPath: String,width:Int=150): DrawableRequestBuilder<String> {
+     fun loadImage(context: Context,posterPath: String,width:Int=200): DrawableRequestBuilder<String> {
         return Glide
                 .with(context)
                 .load(MovieApi.BASE_IMAGE_URL + "w$width" + posterPath)

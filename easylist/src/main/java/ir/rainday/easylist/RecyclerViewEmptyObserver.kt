@@ -1,11 +1,11 @@
 package ir.rainday.easylist
 
 import android.content.Context
-import android.support.annotation.LayoutRes
-import android.support.v7.widget.RecyclerView
+import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import java.lang.ref.WeakReference
 
 /**
@@ -76,9 +76,9 @@ class RecyclerViewEmptyObserver(recyclerView: RecyclerView) : RecyclerView.Adapt
 
 
 fun RecyclerView.setEmptyView(emptyView: View) {
-    this.adapter.registerAdapterDataObserver(RecyclerViewEmptyObserver(this, emptyView))
+    this.adapter?.registerAdapterDataObserver(RecyclerViewEmptyObserver(this, emptyView))
 }
 
 fun RecyclerView.setEmptyView(@LayoutRes emptyViewRes: Int) {
-    this.adapter.registerAdapterDataObserver(RecyclerViewEmptyObserver(this, emptyViewRes))
+    this.adapter?.registerAdapterDataObserver(RecyclerViewEmptyObserver(this, emptyViewRes))
 }

@@ -8,10 +8,10 @@ import android.annotation.SuppressLint
 import android.graphics.Canvas
 import android.graphics.Rect
 import android.graphics.Region
-import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 import java.util.HashMap
 
@@ -41,7 +41,7 @@ class PinnedHeaderItemDecoration : RecyclerView.ItemDecoration() {
         fun isPinnedViewType(viewType: Int, position: Int): Boolean
     }
 
-    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun onDraw(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         createPinnedHeader(parent)
 
         if (mPinnedHeaderView != null) {
@@ -50,24 +50,24 @@ class PinnedHeaderItemDecoration : RecyclerView.ItemDecoration() {
             val headerEndAt = mPinnedHeaderView!!.top + mPinnedHeaderView!!.height
             val v = parent.findChildViewUnder((c.width / 2).toFloat(), (headerEndAt + 1).toFloat())
 
-            if (isHeaderView(parent, v)) {
-                mPinnedHeaderTop = v.top - mPinnedHeaderView!!.height
+            mPinnedHeaderTop = if (v != null && isHeaderView(parent, v)) {
+                v.top - mPinnedHeaderView!!.height
             } else {
-                mPinnedHeaderTop = 0
+                0
             }
 
             mClipBounds = c.clipBounds
-            mClipBounds!!.top = mPinnedHeaderTop + mPinnedHeaderView!!.height
+            mClipBounds!!.top = mPinnedHeaderTop - mPinnedHeaderView!!.height
             c.clipRect(mClipBounds!!)
         }
     }
 
-    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State?) {
+    override fun onDrawOver(c: Canvas, parent: RecyclerView, state: RecyclerView.State) {
         if (mPinnedHeaderView != null) {
             c.save()
 
             mClipBounds!!.top = 0
-            c.clipRect(mClipBounds!!, Region.Op.UNION)
+            c.clipRect(mClipBounds!!, Region.Op.INTERSECT)
             c.translate(0f, mPinnedHeaderTop.toFloat())
             mPinnedHeaderView!!.draw(c)
 
@@ -175,10 +175,6 @@ class PinnedHeaderItemDecoration : RecyclerView.ItemDecoration() {
         mPinnedHeaderView = null
         mHeaderPosition = -1
         mPinnedViewTypes.clear()
-    }
-
-    companion object {
-        private val TAG = PinnedHeaderItemDecoration::class.java.simpleName
     }
 
 }

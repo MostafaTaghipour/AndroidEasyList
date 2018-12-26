@@ -2,8 +2,7 @@ package ir.rainday.easylist
 
 import android.widget.Filter
 import android.widget.Filterable
-import ir.rainday.easylist.RecyclerViewAdapter
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by mostafa-taghipour on 12/22/17.
