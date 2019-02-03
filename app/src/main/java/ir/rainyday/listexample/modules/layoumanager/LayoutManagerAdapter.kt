@@ -7,8 +7,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ir.rainday.easylist.GenericViewHolder
-import ir.rainday.easylist.RecyclerViewAdapter
+import ir.rainyday.easylist.GenericViewHolder
+import ir.rainyday.easylist.RecyclerViewAdapter
 import ir.rainyday.listexample.AppHelpers
 import ir.rainyday.listexample.DynamicHeightNetworkImageView
 import ir.rainyday.listexample.R

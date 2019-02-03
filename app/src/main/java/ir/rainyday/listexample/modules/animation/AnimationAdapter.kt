@@ -4,9 +4,9 @@ import android.content.Context
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ir.rainday.easylist.RecyclerViewAdapter
-import ir.rainday.easylist.GenericViewHolder
-import ir.rainday.easylist.SelectableAdapter
+import ir.rainyday.easylist.RecyclerViewAdapter
+import ir.rainyday.easylist.GenericViewHolder
+import ir.rainyday.easylist.SelectableAdapter
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.DateModel
 

@@ -17,8 +17,8 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import ir.rainday.easylist.DragAndSwipeItemTouchHelperCallback
-import ir.rainday.easylist.GenericViewHolder
+import ir.rainyday.easylist.DragAndSwipeItemTouchHelperCallback
+import ir.rainyday.easylist.GenericViewHolder
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.DateModel
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator

@@ -1,4 +1,4 @@
-package ir.rainday.easylist
+package ir.rainyday.easylist
 
 /**
  * Created by mostafa-taghipour on 12/28/17.

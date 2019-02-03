@@ -1,4 +1,4 @@
-package ir.rainday.easylist
+package ir.rainyday.easylist
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

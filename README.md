@@ -42,7 +42,7 @@ Add the dependency to your module's `build.gradle` file:
 ```Gradle
 dependencies {
     ...
-    compile 'com.github.mostafataghipour:androideasylist:1.0.5'
+    implementation 'com.github.mostafataghipour:androideasylist:1.0.5'
 }
 ```
 
@@ -109,12 +109,12 @@ override fun onCreate(savedInstanceState: Bundle?) {
 ## Thanks for
 
 - [Android-Pagination-with-RecyclerView](https://github.com/Suleiman19/Android-Pagination-with-RecyclerView)
-- [Apinned-section-item-decoration](https://github.com/takahr/pinned-section-item-decoration)
+- [Pinned-section-item-decoration](https://github.com/takahr/pinned-section-item-decoration)
 - [Generic ViewHolder](https://medium.com/@AlexeyBuzdin/generic-viewholder-for-android-63bf9e0db06a)
 
 ## Author
 
-Mostafa Taghipour, mostafa.taghipour@ymail.com
+Mostafa Taghipour, mostafa@taghipour.me
 
 ## License
 

@@ -8,8 +8,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import ir.rainday.easylist.LoadingFooterAdapter
-import ir.rainday.easylist.PaginatedRecyclerOnScrollListener
+import ir.rainyday.easylist.LoadingFooterAdapter
+import ir.rainyday.easylist.PaginatedRecyclerOnScrollListener
 import ir.rainyday.listexample.R
 import kotlinx.android.synthetic.main.activity_endless.*
 import kotlinx.android.synthetic.main.content_endless.*

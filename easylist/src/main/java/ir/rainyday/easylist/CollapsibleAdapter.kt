@@ -1,4 +1,4 @@
-package ir.rainday.easylist
+package ir.rainyday.easylist
 
 import android.os.Handler
 import android.view.LayoutInflater

@@ -5,8 +5,8 @@ import androidx.core.content.ContextCompat
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ir.rainday.easylist.RecyclerViewAdapter
-import ir.rainday.easylist.GenericViewHolder
+import ir.rainyday.easylist.RecyclerViewAdapter
+import ir.rainyday.easylist.GenericViewHolder
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.Message
 import ir.rainyday.listexample.model.me

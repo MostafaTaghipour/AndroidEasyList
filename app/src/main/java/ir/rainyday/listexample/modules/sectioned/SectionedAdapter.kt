@@ -4,14 +4,14 @@ import android.content.Context
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import ir.rainday.easylist.RecyclerViewAdapter
-import ir.rainday.easylist.GenericViewHolder
+import ir.rainyday.easylist.RecyclerViewAdapter
+import ir.rainyday.easylist.GenericViewHolder
 import com.l4digital.fastscroll.FastScroller
 import ir.rainyday.listexample.AppHelpers
 import ir.rainyday.listexample.R
 import ir.rainyday.listexample.model.Movie
-import ir.rainday.easylist.PinnedHeaderItemDecoration
-import ir.rainday.easylist.SectionedAdapter
+import ir.rainyday.easylist.PinnedHeaderItemDecoration
+import ir.rainyday.easylist.SectionedAdapter
 
 
 /**

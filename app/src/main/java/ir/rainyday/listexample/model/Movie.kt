@@ -1,7 +1,7 @@
 package ir.rainyday.listexample.model
 
 import com.google.gson.annotations.SerializedName
-import ir.rainday.easylist.Diffable
+import ir.rainyday.easylist.Diffable
 import ir.rainyday.listexample.randFloat
 
 /**

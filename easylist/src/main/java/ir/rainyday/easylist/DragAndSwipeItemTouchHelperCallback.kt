@@ -1,4 +1,4 @@
-package ir.rainday.easylist
+package ir.rainyday.easylist
 
 import android.graphics.Canvas
 import androidx.recyclerview.widget.ItemTouchHelper
