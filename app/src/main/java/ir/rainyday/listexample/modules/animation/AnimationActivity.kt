@@ -97,8 +97,7 @@ class AnimationActivity : AppCompatActivity(),
         })
 
         // implement swipe and drag
-        val callback = DragAndSwipeItemTouchHelperCallback(this)
-        ItemTouchHelper(callback).attachToRecyclerView(recyclerView)
+        implementSwipeAndDrag()
 
     }
 
@@ -118,7 +117,9 @@ class AnimationActivity : AppCompatActivity(),
         when (item?.itemId) {
             R.id.add -> {
                 viewModel.addNewItem()
-                recyclerView.scrollToPosition(0)
+                recyclerView.post {
+                    recyclerView.scrollToPosition(0)
+                }
             }
             R.id.edit -> {
                 enableActionMode()
@@ -127,7 +128,13 @@ class AnimationActivity : AppCompatActivity(),
         return super.onOptionsItemSelected(item)
     }
 
-    //drag and swipe
+
+    //region Drag and Swipe
+    private fun implementSwipeAndDrag() {
+        val callback = DragAndSwipeItemTouchHelperCallback(this)
+        ItemTouchHelper(callback).attachToRecyclerView(recyclerView)
+    }
+
     override fun onItemMove(fromPosition: Int, toPosition: Int) {
         viewModel.swapItems(fromPosition, toPosition)
     }
@@ -152,8 +159,9 @@ class AnimationActivity : AppCompatActivity(),
     override fun isItemViewSwipeEnabled(): Boolean {
         return actionMode != null
     }
+    //endregion
 
-
+    //region adapter callback
     override fun onRecyclerViewItemClicked(adapter: RecyclerView.Adapter<*>, view: View, position: Int, item: DateModel) {
         if (actionMode == null)
             return
@@ -191,8 +199,9 @@ class AnimationActivity : AppCompatActivity(),
 
         alert.show()
     }
+    //endregion
 
-    //Actionbar
+    //region Actionbar
     private var actionModeCallback = ActionModeCallback()
     private var actionMode: ActionMode? = null
 
@@ -249,8 +258,7 @@ class AnimationActivity : AppCompatActivity(),
         adapter.actionMode = false
         adapter.notifyDataSetChanged()
     }
-
-
+    //endregion
 }
 
 

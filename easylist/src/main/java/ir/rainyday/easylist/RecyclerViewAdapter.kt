@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import java.util.*
 
 
 /**
@@ -15,12 +16,16 @@ import androidx.recyclerview.widget.RecyclerView
 @Suppress("UNCHECKED_CAST")
 abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    //region private variables
     internal val _private_selectedItems: SparseBooleanArray = SparseBooleanArray()
     internal val _private_allItems: MutableList<Any> = mutableListOf()
     internal var _private_lockNonefilteredItems = false
     internal var _private_nonefilteredItems: List<Any> = ArrayList()
     internal val _private_expandMap = HashMap<Any, List<Any>>()
+    //endregion
 
+    //region data setter and getter
+    private val pendingUpdates: Queue<List<T>> = ArrayDeque()
 
     var items: List<T>?
         set(value) {
@@ -32,8 +37,7 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
 
 
     private fun setNewItems(value: List<T>?) {
-        var newList: List<T> = value ?: ArrayList()
-        val oldList: List<T> = getPureItems() ?: ArrayList<T>()
+        var newList: List<T> = ArrayList(value ?: ArrayList())
 
         if (this is CollapsibleAdapter)
             newList = this._tryToMapList(newList) as List<T>
@@ -41,20 +45,50 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
         if (this is FilterableAdapter && !_private_lockNonefilteredItems)
             _private_nonefilteredItems = newList
 
-
         if (isAnimationEnabled) {
-            val diffResult = DiffUtil.calculateDiff(DiffCallback(oldList, newList))
-
-            _private_allItems.clear()
-            _private_allItems.addAll(newList)
-
-            diffResult.dispatchUpdatesTo(this)
-
+            updateItemsInternal(newList)
         } else {
             _private_allItems.clear()
             _private_allItems.addAll(newList)
             notifyDataSetChanged()
         }
+    }
+
+    private fun updateItemsInternal(newItems: List<T>, useSeparateThread: Boolean = true) {
+
+        pendingUpdates.add(newItems)
+
+        val oldItems = ArrayList(getPureItems() ?: ArrayList<T>())
+
+        if (useSeparateThread) {
+            runAsync {
+                val diffResult = DiffUtil.calculateDiff(DiffCallback(oldItems, newItems))
+                runOnUiThread {
+                    applyDiffResult(newItems, diffResult, true)
+                }
+            }
+        }
+        else{
+            val diffResult = DiffUtil.calculateDiff(DiffCallback(oldItems, newItems))
+            applyDiffResult(newItems, diffResult, false)
+        }
+    }
+
+    private fun applyDiffResult(newItems: List<T>,
+                                diffResult: DiffUtil.DiffResult,
+                                useSeparateThread: Boolean) {
+        dispatchUpdates(newItems, diffResult)
+        pendingUpdates.remove()
+        if (!pendingUpdates.isEmpty()) {
+            updateItemsInternal(pendingUpdates.peek(),useSeparateThread)
+        }
+    }
+
+    private fun dispatchUpdates(newItems: List<T>,
+                                diffResult: DiffUtil.DiffResult) {
+        _private_allItems.clear()
+        _private_allItems.addAll(newItems)
+        diffResult.dispatchUpdatesTo(this)
     }
 
     private fun getPureItems(): List<T>? {
@@ -64,15 +98,18 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
 
         return res as? List<T>
     }
+    //endregion
 
+    //region public properties
     var isAnimationEnabled: Boolean = true
 
     val isEmpty: Boolean
         get() = itemCount == 0
 
     var onItemClickListener: GenericViewHolder.OnItemClicked<T>? = null
+    //endregion
 
-
+    //region override
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
         val inflater = LayoutInflater.from(context)
@@ -89,19 +126,6 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
             viewHolder = generateViewHolder(inflater, viewType, viewGroup)
         }
 
-        return viewHolder
-    }
-
-    open fun generateViewHolder(inflater: LayoutInflater, viewType: Int, viewGroup: ViewGroup): RecyclerView.ViewHolder {
-        val view: View = inflater.inflate(getLayout(viewType), viewGroup, false)
-        val viewHolder = GenericViewHolder(view)
-
-        if (onItemClickListener != null)
-            view.setOnClickListener {
-                items?.getOrNull(viewHolder.adapterPosition)?.let {
-                    this.onItemClickListener?.onRecyclerViewItemClicked(this, view, viewHolder.adapterPosition, it)
-                }
-            }
         return viewHolder
     }
 
@@ -144,13 +168,30 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
 
         return type
     }
+    //endregion
 
-    // must implements methods
+    //region open for override
+    open fun generateViewHolder(inflater: LayoutInflater, viewType: Int, viewGroup: ViewGroup): RecyclerView.ViewHolder {
+        val view: View = inflater.inflate(getLayout(viewType), viewGroup, false)
+        val viewHolder = GenericViewHolder(view)
+
+        if (onItemClickListener != null)
+            view.setOnClickListener { _ ->
+                items?.getOrNull(viewHolder.adapterPosition)?.let {
+                    this.onItemClickListener?.onRecyclerViewItemClicked(this, view, viewHolder.adapterPosition, it)
+                }
+            }
+        return viewHolder
+    }
+
+    open fun getItemType(position: Int): Int = 0
+    //endregion
+
+    //region must implement
     protected abstract fun getLayout(viewType: Int): Int
 
     protected abstract fun bindView(item: T, position: Int, viewHolder: RecyclerView.ViewHolder)
-    open fun getItemType(position: Int): Int = 0
-
+    //endregion
 }
 
 

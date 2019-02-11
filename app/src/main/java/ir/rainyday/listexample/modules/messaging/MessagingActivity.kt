@@ -82,8 +82,12 @@ class MessagingActivity : AppCompatActivity() {
         if (text.isNullOrEmpty())
             return
 
+
         viewModel.sendMessage(text!!.toString())
-        recyclerView.scrollToPosition(0)
+        recyclerView.post {
+            recyclerView.scrollToPosition(0)
+        }
+
         edittext_chatbox.text = null
     }
 
