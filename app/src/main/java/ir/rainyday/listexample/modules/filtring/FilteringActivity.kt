@@ -39,7 +39,7 @@ class FilteringActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         val adapter = object : RecyclerViewAdapter<Movie>(this), FilterableAdapter {
             override fun getLayout(viewType: Int): Int {
-                return  R.layout.item_list
+                return  R.layout.item_movie
             }
 
             override fun bindView(item: Movie, position: Int, viewHolder: RecyclerView.ViewHolder) {

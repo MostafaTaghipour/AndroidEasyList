@@ -17,7 +17,7 @@ Everything you need to implement your own lists:
 - Filterable
 - Multiple data type
 
-<img width="290" alt="animation" src="/screenshots/animation.gif"> <img width="290" alt="expandable" src="/screenshots/expandable.gif"> <img width="290" alt="filtering" src="/screenshots/filtering.gif"> <img width="290" alt="message" src="/screenshots/message.gif"> <img width="290" alt="layout" src="/screenshots/layout.gif"> <img width="290" alt="pagination" src="/screenshots/pagination.gif"> <img width="290" alt="sectioned" src="/screenshots/sectioned.gif">
+<img width="290" alt="animation" src="https://raw.githubusercontent.com/MostafaTaghipour/AndroidEasyList/master/screenshots/animation.gif"> <img width="290" alt="expandable" src="https://raw.githubusercontent.com/MostafaTaghipour/AndroidEasyList/master/screenshots/expandable.gif"> <img width="290" alt="filtering" src="https://raw.githubusercontent.com/MostafaTaghipour/AndroidEasyList/master/screenshots/filtering.gif"> <img width="290" alt="message" src="https://raw.githubusercontent.com/MostafaTaghipour/AndroidEasyList/master/screenshots/message.gif"> <img width="290" alt="layout" src="https://raw.githubusercontent.com/MostafaTaghipour/AndroidEasyList/master/screenshots/layout.gif"> <img width="290" alt="pagination" src="https://raw.githubusercontent.com/MostafaTaghipour/AndroidEasyList/master/screenshots/pagination.gif"> <img width="290" alt="sectioned" src="https://raw.githubusercontent.com/MostafaTaghipour/AndroidEasyList/master/screenshots/sectioned.gif">
 
 
 ## Requirements

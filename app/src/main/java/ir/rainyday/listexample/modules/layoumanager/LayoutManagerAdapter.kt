@@ -29,7 +29,7 @@ class LayoutManagerAdapter(context: Context) : RecyclerViewAdapter<Movie>(contex
 
     override fun getLayout(viewType: Int): Int {
         return when (viewType) {
-            LayoutType.Linear.value -> R.layout.item_list_2
+            LayoutType.Linear.value -> R.layout.item_list
             LayoutType.Grid.value -> R.layout.item_grid
             LayoutType.Spanned.value -> R.layout.item_spanned
             LayoutType.Staggered.value -> R.layout.item_staggered

@@ -1,43 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-<LinearLayout
-    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/white"
-    android:padding="@dimen/activity_margin"
-    android:orientation="horizontal">
-
-    <FrameLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:background="@color/placeholder_grey">
-
-        <ProgressBar
-            android:id="@+id/movie_progress"
-            style="@style/Widget.AppCompat.ProgressBar"
-            android:layout_width="@dimen/activity_margin"
-            android:layout_height="@dimen/activity_margin"
-            android:layout_gravity="center"
-            android:theme="@style/CircularProgress" />
-
-        <ImageView
-            android:id="@+id/movie_poster"
-            android:layout_width="@dimen/poster_thumb_width"
-            android:layout_height="@dimen/poster_thumb_height" />
-
-    </FrameLayout>
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="bottom"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@android:color/white"
         android:orientation="vertical"
-       >
+        android:paddingBottom="@dimen/activity_margin"
+        android:paddingEnd="@dimen/activity_margin"
+        android:paddingLeft="@dimen/poster_thumb_width"
+        android:paddingRight="@dimen/activity_margin"
+        android:paddingStart="@dimen/poster_thumb_width"
+        android:paddingTop="@dimen/activity_margin_half">
 
         <TextView
             android:id="@+id/movie_year"
@@ -77,7 +58,27 @@
 
     </LinearLayout>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/activity_margin_half"
+        app:cardBackgroundColor="@color/placeholder_grey"
+        app:cardCornerRadius="3dp"
+        app:cardPreventCornerOverlap="false">
 
+        <ProgressBar
+            android:id="@+id/movie_progress"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_width="@dimen/activity_margin"
+            android:layout_height="@dimen/activity_margin"
+            android:layout_gravity="center"
+            android:theme="@style/CircularProgress" />
 
-</LinearLayout>
-</androidx.cardview.widget.CardView>
+        <ImageView
+            android:id="@+id/movie_poster"
+            android:layout_width="@dimen/poster_thumb_width"
+            android:layout_height="@dimen/poster_thumb_height" />
+
+    </androidx.cardview.widget.CardView>
+
+</FrameLayout>

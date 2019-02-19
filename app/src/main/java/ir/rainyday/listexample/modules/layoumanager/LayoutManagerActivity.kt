@@ -155,6 +155,9 @@ class LayoutManagerActivity : AppCompatActivity() {
                 val flowLayoutManager = FlowLayoutManager()
                 flowLayoutManager.setAlignment(Alignment.LEFT)
                 flowLayoutManager.isAutoMeasureEnabled = true
+
+                main_recycler.setPadding(eight, eight, eight, eight)
+
                 flowLayoutManager
             }
         }

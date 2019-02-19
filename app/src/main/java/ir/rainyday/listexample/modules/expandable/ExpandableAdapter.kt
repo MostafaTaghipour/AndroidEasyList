@@ -23,7 +23,7 @@ class ExpandableAdapter(context: Context, layoutManager: LinearLayoutManager) : 
     private val weakLayoutManager: WeakReference<LinearLayoutManager> = WeakReference(layoutManager)
 
     override fun getLayout(viewType: Int): Int {
-        return R.layout.item_list
+        return R.layout.item_movie
     }
 
     override fun bindView(item: Any, position: Int, viewHolder: RecyclerView.ViewHolder) {

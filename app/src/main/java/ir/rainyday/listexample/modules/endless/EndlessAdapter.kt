@@ -64,7 +64,7 @@ class EndlessAdapter(context: Context) :
                 HeroViewHolder(context,view)
             }
             else ->{
-                val view = inflater.inflate( R.layout.item_list, viewGroup,false)
+                val view = inflater.inflate( R.layout.item_movie, viewGroup,false)
                 ItemViewHolder(context,view)
             }
         }
