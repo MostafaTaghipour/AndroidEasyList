@@ -48,7 +48,7 @@ class SpacingItemDecoration @JvmOverloads constructor(
             HORIZONTAL -> {
                 if (isRTL == true) {
                     outRect.right = if (position != 0 || includeEdges) spacing else 0
-                    outRect.left = if (position == itemCount - 1 && !includeEdges) spacing else 0
+                    outRect.left = if (position == itemCount - 1 && includeEdges) spacing else 0
                 } else {
                     outRect.left = if (position != 0 || includeEdges) spacing else 0
                     outRect.right = if (position == itemCount - 1 && includeEdges) spacing else 0
