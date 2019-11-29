@@ -18,7 +18,7 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
 
     //region private variables
     internal val _private_selectedItems: SparseBooleanArray = SparseBooleanArray()
-    internal val _private_allItems: MutableList<Any> = mutableListOf()
+    internal var _private_allItems: MutableList<Any> = mutableListOf()
     internal var _private_lockNonefilteredItems = false
     internal var _private_nonefilteredItems: List<Any> = ArrayList()
     internal val _private_expandMap = HashMap<Any, List<Any>>()
@@ -48,8 +48,13 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
         if (isAnimationEnabled) {
             updateItemsInternal(newList)
         } else {
-            _private_allItems.clear()
-            _private_allItems.addAll(newList)
+
+            val res = mutableListOf<Any>()
+            res.addAll(newList)
+            _private_allItems = res
+
+//            _private_allItems.clear()
+//            _private_allItems.addAll(newList)
             notifyDataSetChanged()
         }
     }
@@ -86,8 +91,13 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
 
     private fun dispatchUpdates(newItems: List<T>,
                                 diffResult: DiffUtil.DiffResult) {
-        _private_allItems.clear()
-        _private_allItems.addAll(newItems)
+
+        val res = mutableListOf<Any>()
+        res.addAll(newItems)
+        _private_allItems = res
+
+//        _private_allItems.clear()
+//        _private_allItems.addAll(newItems)
         diffResult.dispatchUpdatesTo(this)
     }
 

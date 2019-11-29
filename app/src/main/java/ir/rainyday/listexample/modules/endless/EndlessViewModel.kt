@@ -35,7 +35,7 @@ class EndlessViewModel() : ViewModel() {
         loading.value = true
 
 
-        android.os.Handler().postDelayed({
+
 
             MovieApi.getTopRatedMovies(page + 1,
                     success = { movies ->
@@ -58,7 +58,7 @@ class EndlessViewModel() : ViewModel() {
                     })
 
 
-        },2000)
+
 
     }
 
