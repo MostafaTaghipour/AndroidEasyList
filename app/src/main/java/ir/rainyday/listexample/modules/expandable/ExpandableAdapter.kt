@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference
  */
 
 
-class ExpandableAdapter(context: Context, layoutManager: LinearLayoutManager) : RecyclerViewAdapter<Any>(context), CollapsibleAdapter {
+class ExpandableAdapter(context: Context, layoutManager: LinearLayoutManager) : RecyclerViewAdapter<Any>(), CollapsibleAdapter {
 
     private val weakLayoutManager: WeakReference<LinearLayoutManager> = WeakReference(layoutManager)
 
@@ -41,7 +41,7 @@ class ExpandableAdapter(context: Context, layoutManager: LinearLayoutManager) : 
             mMovieDesc?.text = item.overview
 
             // load movie thumbnail
-            AppHelpers.loadImage(context, item.posterPath!!)
+            AppHelpers.loadImage(viewHolder.itemView.context, item.posterPath!!)
                     .into(mPosterImg)
         }
     }

@@ -2,6 +2,7 @@ package ir.rainyday.easylist
 
 import android.os.Handler
 import android.os.Looper
+import androidx.recyclerview.widget.RecyclerView
 
 
 internal fun runAsync(action: () -> Unit) = Thread(Runnable(action)).start()
@@ -15,4 +16,5 @@ internal fun runOnUiThread(action: () -> Unit) {
 }
 
 private fun isMainLooperAlive() = Looper.myLooper() == Looper.getMainLooper()
+
 

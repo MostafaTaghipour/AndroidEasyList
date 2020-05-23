@@ -1,6 +1,5 @@
 package ir.rainyday.easylist
 
-import android.content.Context
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +13,7 @@ import java.util.*
  * Created by Plumillon Forge.
  */
 @Suppress("UNCHECKED_CAST")
-abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+abstract class RecyclerViewAdapter<T : Any> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     //region private variables
     internal val _private_selectedItems: SparseBooleanArray = SparseBooleanArray()
@@ -46,7 +45,14 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
             _private_nonefilteredItems = newList
 
         if (isAnimationEnabled) {
-            updateItemsInternal(newList)
+//            updateItemsInternal(newList)
+
+            val oldItems = ArrayList(getPureItems() ?: ArrayList<T>())
+            val diffResult = DiffUtil.calculateDiff(DiffCallback(oldItems, newList))
+            _private_allItems.clear()
+            _private_allItems.addAll(newList)
+            diffResult.dispatchUpdatesTo(this)
+
         } else {
 
             _private_allItems.clear()
@@ -56,7 +62,6 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
     }
 
     private fun updateItemsInternal(newItems: List<T>, useSeparateThread: Boolean = true) {
-
         pendingUpdates.add(newItems)
 
         val oldItems = ArrayList(getPureItems() ?: ArrayList<T>())
@@ -114,7 +119,7 @@ abstract class RecyclerViewAdapter<T : Any> constructor(val context: Context) : 
     //region override
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        val inflater = LayoutInflater.from(context)
+        val inflater = LayoutInflater.from(viewGroup.context)
         var viewHolder: RecyclerView.ViewHolder? = null
 
         if (this is LoadingFooterAdapter)

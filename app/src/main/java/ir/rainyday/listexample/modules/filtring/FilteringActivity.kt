@@ -37,7 +37,7 @@ class FilteringActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private val adapter: RecyclerViewAdapter<Movie> by lazy {
 
-        val adapter = object : RecyclerViewAdapter<Movie>(this), FilterableAdapter {
+        val adapter = object : RecyclerViewAdapter<Movie>(), FilterableAdapter {
             override fun getLayout(viewType: Int): Int {
                 return  R.layout.item_movie
             }
@@ -55,7 +55,7 @@ class FilteringActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 mMovieDesc?.text = item.overview
 
                 // load movie thumbnail
-                AppHelpers.loadImage(context, item.posterPath!!)
+                AppHelpers.loadImage(viewHolder.itemView.context, item.posterPath!!)
                         .into(mPosterImg)
 
             }

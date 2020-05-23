@@ -10,6 +10,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 
 /**
  * Created by mostafa-taghipour on 11/28/17.
@@ -33,9 +34,12 @@ object MovieApi {
         }
 
     private fun buildClient(): OkHttpClient {
-        return OkHttpClient.Builder()
-                .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .build()
+        val client = OkHttpClient.Builder()
+        client.readTimeout(60, TimeUnit.SECONDS)
+        client.connectTimeout(60, TimeUnit.SECONDS)
+        client.addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+
+        return client.build()
     }
 
     val BASE_IMAGE_URL = "https://image.tmdb.org/t/p/"
@@ -46,8 +50,9 @@ object MovieApi {
     fun getTopRatedMovies(page: Int, success: (List<Movie>) -> Unit, failure: (Throwable) -> Unit) {
         movieService.getTopRatedMovies(pageIndex = page).enqueue(object : Callback<TopRatedMovies> {
             override fun onResponse(call: Call<TopRatedMovies>, response: Response<TopRatedMovies>) {
-                val movies = response.body().results
-                success.invoke(movies)
+               response.body()?.results?.let {
+                   success.invoke(it)
+               }
             }
 
             override fun onFailure(call: Call<TopRatedMovies>, t: Throwable) {
@@ -61,8 +66,9 @@ object MovieApi {
     fun getPopularMovies(page: Int, success: (PopularMovies) -> Unit, failure: (Throwable) -> Unit) {
         movieService.getPopularMovies(pageIndex = page).enqueue(object : Callback<PopularMovies> {
             override fun onResponse(call: Call<PopularMovies>, response: Response<PopularMovies>) {
-                val res = response.body()
-                success.invoke(res)
+                response.body()?.let {
+                    success.invoke(it)
+                }
             }
 
             override fun onFailure(call: Call<PopularMovies>, t: Throwable) {

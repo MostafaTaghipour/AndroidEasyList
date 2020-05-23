@@ -21,7 +21,7 @@ import ir.rainyday.easylist.SectionedAdapter
 
 
 
-class SectionedAdapter(context: Context): RecyclerViewAdapter<Any>(context),
+class SectionedAdapter(context: Context): RecyclerViewAdapter<Any>(),
         SectionedAdapter,
         PinnedHeaderItemDecoration.PinnedHeaderAdapter,
         FastScroller.SectionIndexer{
@@ -45,7 +45,7 @@ class SectionedAdapter(context: Context): RecyclerViewAdapter<Any>(context),
             mMovieDesc?.text = item.overview
 
             // load movie thumbnail
-            AppHelpers.loadImage(context, item.posterPath!!)
+            AppHelpers.loadImage(viewHolder.itemView.context, item.posterPath!!)
                     .into(mPosterImg)
         }
     }

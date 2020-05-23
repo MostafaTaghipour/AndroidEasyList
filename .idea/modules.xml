@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ListExample.iml" filepath="$PROJECT_DIR$/ListExample.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/easylist/easylist.iml" filepath="$PROJECT_DIR$/easylist/easylist.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ListExample.iml" filepath="$PROJECT_DIR$/ListExample.iml" group="ListExample" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="ListExample/app" />
+      <module fileurl="file://$PROJECT_DIR$/easylist/easylist.iml" filepath="$PROJECT_DIR$/easylist/easylist.iml" group="ListExample/easylist" />
     </modules>
   </component>
 </project>

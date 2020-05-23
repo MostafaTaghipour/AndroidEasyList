@@ -17,7 +17,7 @@ import ir.rainyday.listexample.model.DateModel
 class AnimationAdapter(
         context: Context,
         onRowClickListener: GenericViewHolder.OnItemClicked<DateModel>) :
-        RecyclerViewAdapter<DateModel>(context),
+        RecyclerViewAdapter<DateModel>(),
         SelectableAdapter {
 
     private var enterAnimationFinished = false

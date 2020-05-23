@@ -21,8 +21,10 @@ allprojects {
         google()
         jcenter()
 //        maven { url "https://maven.google.com" }
-//        maven { url 'https://jitpack.io' }
-
+        maven { url 'https://jitpack.io' }
+    }
+    configurations.all {
+        resolutionStrategy.force "androidx.recyclerview:recyclerview:1.2.0-alpha03"
     }
 }
 

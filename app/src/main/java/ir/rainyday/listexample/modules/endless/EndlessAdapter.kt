@@ -27,7 +27,7 @@ import java.lang.ref.WeakReference
 
 
 class EndlessAdapter(context: Context) :
-        RecyclerViewAdapter<Any>(context),
+        RecyclerViewAdapter<Any>(),
         LoadingFooterAdapter, PopularsViewHolder.Contract {
 
     companion object {
@@ -53,7 +53,8 @@ class EndlessAdapter(context: Context) :
 
 
     override fun generateViewHolder(inflater: LayoutInflater, viewType: Int, viewGroup: ViewGroup): RecyclerView.ViewHolder {
-        
+
+        val context = viewGroup.context
         return when(viewType){
             POPULAR->{
                 val view = inflater.inflate( R.layout.item_popular_list, viewGroup,false)
@@ -174,7 +175,7 @@ class PopularsViewHolder(var context: Context,itemView:View,var contract: Contra
         recyclerView=itemView.findViewById(R.id.horizontal_recyclerview)
         val layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         recyclerView.layoutManager = layoutManager
-        popularAdapter = object : RecyclerViewAdapter<Movie>(context){
+        popularAdapter = object : RecyclerViewAdapter<Movie>() {
             override fun getLayout(viewType: Int): Int {
                 return R.layout.item_popular
             }

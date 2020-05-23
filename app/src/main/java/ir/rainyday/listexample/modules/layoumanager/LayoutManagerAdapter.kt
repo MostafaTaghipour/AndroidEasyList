@@ -19,7 +19,7 @@ import ir.rainyday.listexample.model.Movie
  */
 
 
-class LayoutManagerAdapter(context: Context) : RecyclerViewAdapter<Movie>(context) {
+class LayoutManagerAdapter(context: Context) : RecyclerViewAdapter<Movie>() {
 
     var layoutType: LayoutType = LayoutType.Linear
         set(value) {
@@ -43,76 +43,81 @@ class LayoutManagerAdapter(context: Context) : RecyclerViewAdapter<Movie>(contex
     override fun bindView(item: Movie, position: Int, viewHolder: RecyclerView.ViewHolder) {
         viewHolder as GenericViewHolder
         val itemType = getItemType(position)
+        val context = viewHolder.itemView.context
 
-        if (itemType == LayoutType.Linear.value) {
+        when (itemType) {
+            LayoutType.Linear.value -> {
 
-            val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
-            val mMovieDesc: TextView? = viewHolder.getView(R.id.movie_desc)
-            val mYear: TextView? = viewHolder.getView(R.id.movie_year)
-            val mPosterImg: ImageView? = viewHolder.getView(R.id.movie_poster)
-
-
-            mMovieTitle?.text = item.title
-            mYear?.text = AppHelpers.formatYearLabel(item)
-            mMovieDesc?.text = item.overview
-
-            // load movie thumbnail
-            AppHelpers.loadImage(context, item.posterPath!!)
-                    .into(mPosterImg)
-        } else if (itemType == LayoutType.Grid.value) {
-
-            val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
-            val mPosterImg: ImageView = viewHolder.getView(R.id.movie_poster)!!
+                val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
+                val mMovieDesc: TextView? = viewHolder.getView(R.id.movie_desc)
+                val mYear: TextView? = viewHolder.getView(R.id.movie_year)
+                val mPosterImg: ImageView? = viewHolder.getView(R.id.movie_poster)
 
 
-            mMovieTitle?.text = item.title
+                mMovieTitle?.text = item.title
+                mYear?.text = AppHelpers.formatYearLabel(item)
+                mMovieDesc?.text = item.overview
 
-            // load movie thumbnail
-            AppHelpers.loadImage(context, item.posterPath!!)
-                    .into(mPosterImg)
-
-        } else if (itemType == LayoutType.Spanned.value) {
-
-            val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
-            val mPosterImg: ImageView = viewHolder.getView(R.id.movie_poster)!!
-            val mContainer: View = viewHolder.getView(R.id.container)!!
-
-            mMovieTitle?.text = item.title
-
-            // load movie thumbnail
-            AppHelpers.loadImage(context, item.posterPath!!)
-                    .into(mPosterImg)
-
-            mContainer.post {
-                val layoutParams = mContainer.layoutParams
-                val height = if (position > 3) 150 else 250
-                layoutParams.height = Math.round(height * (context.resources.displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
-                mContainer.layoutParams = layoutParams
-                mMovieTitle?.setTextSize(TypedValue.COMPLEX_UNIT_SP,if (position > 3) 9f else 14f)
+                // load movie thumbnail
+                AppHelpers.loadImage(context, item.posterPath!!)
+                        .into(mPosterImg)
             }
+            LayoutType.Grid.value -> {
+
+                val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
+                val mPosterImg: ImageView = viewHolder.getView(R.id.movie_poster)!!
 
 
-        } else if (itemType == LayoutType.Staggered.value) {
-            val mPosterImg = viewHolder.getView<DynamicHeightNetworkImageView>(R.id.movie_poster)
+                mMovieTitle?.text = item.title
 
-            // load movie thumbnail
-            AppHelpers.loadImage(context, item.posterPath!!)
-                    .into(mPosterImg)
+                // load movie thumbnail
+                AppHelpers.loadImage(context, item.posterPath!!)
+                        .into(mPosterImg)
 
-            mPosterImg?.setAspectRatio(item.ratio)
+            }
+            LayoutType.Spanned.value -> {
 
-        }
+                val mMovieTitle: TextView? = viewHolder.getView(R.id.movie_title)
+                val mPosterImg: ImageView = viewHolder.getView(R.id.movie_poster)!!
+                val mContainer: View = viewHolder.getView(R.id.container)!!
 
-        else{
-            val mMovieTitle: TextView? = viewHolder.getView(R.id.title)
-            val mPosterImg: ImageView = viewHolder.getView(R.id.image)!!
+                mMovieTitle?.text = item.title
+
+                // load movie thumbnail
+                AppHelpers.loadImage(context, item.posterPath!!)
+                        .into(mPosterImg)
+
+                mContainer.post {
+                    val layoutParams = mContainer.layoutParams
+                    val height = if (position > 3) 150 else 250
+                    layoutParams.height = Math.round(height * (context.resources.displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT))
+                    mContainer.layoutParams = layoutParams
+                    mMovieTitle?.setTextSize(TypedValue.COMPLEX_UNIT_SP,if (position > 3) 9f else 14f)
+                }
 
 
-            mMovieTitle?.text = item.title
+            }
+            LayoutType.Staggered.value -> {
+                val mPosterImg = viewHolder.getView<DynamicHeightNetworkImageView>(R.id.movie_poster)
 
-            // load movie thumbnail
-            AppHelpers.loadImage(context, item.posterPath!!)
-                    .into(mPosterImg)
+                // load movie thumbnail
+                AppHelpers.loadImage(context, item.posterPath!!)
+                        .into(mPosterImg)
+
+                mPosterImg?.setAspectRatio(item.ratio)
+
+            }
+            else -> {
+                val mMovieTitle: TextView? = viewHolder.getView(R.id.title)
+                val mPosterImg: ImageView = viewHolder.getView(R.id.image)!!
+
+
+                mMovieTitle?.text = item.title
+
+                // load movie thumbnail
+                AppHelpers.loadImage(context, item.posterPath!!)
+                        .into(mPosterImg)
+            }
         }
     }
 
